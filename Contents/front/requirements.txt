@@ -1,0 +1,6 @@
+flask==2.0.1
+Gunicorn
+uvicorn
+ez_setup
+fastapi
+requests

@@ -1,0 +1,31 @@
+version: "3"
+services:
+
+  front:
+    build:
+      context: .
+      dockerfile: ./front/build/Dockerfile
+    ports:
+      - 5005:8000
+    expose:
+      - "8000"
+    volumes:
+      - ./front:/usr/src/app
+
+    command: gunicorn flask_app:app
+
+  backend:
+    build:
+      context: .
+      dockerfile:  ./backend/build/Dockerfile
+    ports:
+      - 5006:9000
+    expose:
+      - "9000"
+    volumes:
+      - ./backend:/usr/src/app
+
+    command: gunicorn flask_app:app
+  
+
+  
