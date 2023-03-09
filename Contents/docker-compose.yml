@@ -7,25 +7,40 @@ services:
       dockerfile: ./front/build/Dockerfile
     ports:
       - 5005:8000
-    expose:
-      - "8000"
     volumes:
-      - ./front:/usr/src/app
+      - .:/front
 
     command: gunicorn flask_app:app
 
   backend:
     build:
       context: .
-      dockerfile:  ./backend/build/Dockerfile
+      dockerfile: ./backend/build/Dockerfile
     ports:
       - 5006:9000
-    expose:
-      - "9000"
     volumes:
-      - ./backend:/usr/src/app
+      - .:/backend
 
     command: gunicorn flask_app:app
-  
+
+  db:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cards-db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: iwashi184
+      TZ: Asia/Tokyo
+    ports:
+        - 3306:3306
+    volumes:
+        - db-store:/var/lib
+        - ./mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+
+volumes:
+  db-store:
+
 
   
