@@ -28,4 +28,4 @@ errorlog = '-'
 proc_name = 'my_python_app'
 
 # アクセスログ
-accesslog = '.\logs\access_log.txt'
+accesslog = './logs/access_log.txt'

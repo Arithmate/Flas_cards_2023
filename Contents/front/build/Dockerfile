@@ -1,8 +1,9 @@
 FROM python:3.9.7-slim-buster
+USER root
 
-COPY ./front /app
-WORKDIR /app
-ENV FLASK_APP=app
+RUN mkdir -p /root/src
+COPY ./front /root/src
+WORKDIR /root/src
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt

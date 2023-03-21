@@ -70,7 +70,7 @@ def sub():
         return render_template('index.html', error_message='POST error')
    
     else:
-        url = "http://bk_2:9000"
+        url = "http://backend:9000"
         headers = {
             "content-Type": "application/json"
         }
