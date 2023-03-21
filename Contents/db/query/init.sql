@@ -1,6 +1,5 @@
 
-CREATE DATABASE cards;
-use cards;
+use cards-db;
 
 CREATE TABLE Cards01 (
    is_deleted       bit(1)       NOT NULL DEFAULT 0                                          COMMENT '{"name":"削除フラグ","note":""}'
