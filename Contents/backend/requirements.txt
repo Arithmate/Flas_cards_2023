@@ -3,3 +3,4 @@ Gunicorn
 uvicorn
 ez_setup
 fastapi
+mysql-connector-python

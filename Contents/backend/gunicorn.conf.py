@@ -21,11 +21,11 @@ reload = True
 # デーモン化する場合はTrue
 daemon = False
 
-# エラーログ
-errorlog = '-'
-
 # プロセスの名前
 proc_name = 'my_python_app'
 
-# アクセスログ
-accesslog = './logs/access_log.txt'
+# # エラーログ
+# errorlog = './logs/error_log.txt'
+
+# # アクセスログ
+# accesslog = './logs/access_log.txt'

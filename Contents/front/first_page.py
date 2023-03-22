@@ -12,10 +12,10 @@ app = Flask(__name__)
 def index():
     # TODO: index.htmlを返す
     if request.method == 'GET':
-        return render_template('index.html', success_message='GET OK')
+        return render_template('small_category.html', success_message='GET OK')
 
     else:
-        return render_template('index.html', error_message='GET NG')
+        return render_template('small_category.html', error_message='GET NG')
 
 
 @app.route("/api/user_detail", methods=['GET', 'POST'])

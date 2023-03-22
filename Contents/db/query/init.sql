@@ -1,5 +1,5 @@
 
-use cards-db;
+use cardsdb;
 
 CREATE TABLE Cards01 (
    is_deleted       bit(1)       NOT NULL DEFAULT 0                                          COMMENT '{"name":"削除フラグ","note":""}'
@@ -12,7 +12,7 @@ CREATE TABLE Cards01 (
  , study_state      varchar(1)   NOT NULL                                                    COMMENT '{"name":"端末ID","note":""}'
  , registered_at    timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"登録日時","note":""}'
  , updated_at       timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"更新日時","note":""}'
- , user_id       binary(16)  NOT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
+ , user_id       binary(16)  DEFAULT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
  , PRIMARY KEY (card_id)
 ) COMMENT='{"name":"単語帳カードマスタ","note":"単語帳カードを管理する"}';
 
@@ -24,7 +24,7 @@ CREATE TABLE Notes01 (
  , sort_number     varchar(1)   NOT NULL                                                    COMMENT '{"name":"端末ID","note":""}'
  , registered_at    timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"登録日時","note":""}'
  , updated_at       timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"更新日時","note":""}'
- , user_id       binary(16)  NOT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
+ , user_id       binary(16)  DEFAULT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
  , PRIMARY KEY (note_id)
 ) COMMENT='{"name":"ノートマスタ","note":"単語帳のノートを管理する"}';
 
@@ -36,7 +36,7 @@ CREATE TABLE Tags01 (
  , sort_number     varchar(1)   NOT NULL                                                    COMMENT '{"name":"端末ID","note":""}'
  , registered_at    timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"登録日時","note":""}'
  , updated_at       timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"更新日時","note":""}'
- , user_id       binary(16)  NOT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
+ , user_id       binary(16)  DEFAULT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
  , PRIMARY KEY (tag_id)
 ) COMMENT='{"name":"タグマスタ","note":"単語帳のタグを管理する"}';
 
@@ -47,7 +47,7 @@ CREATE TABLE LargeCategory01 (
  , sort_number     varchar(1)   NOT NULL                                                    COMMENT '{"name":"端末ID","note":""}'
  , registered_at    timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"登録日時","note":""}'
  , updated_at       timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"更新日時","note":""}'
- , user_id       binary(16)  NOT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
+ , user_id       binary(16)  DEFAULT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
  , PRIMARY KEY (large_category_id)
 ) COMMENT='{"name":"大分類マスタ","note":"大分類を管理する"}';
 
@@ -58,7 +58,7 @@ CREATE TABLE SmallCategory01 (
  , sort_number     varchar(1)   NOT NULL                                                    COMMENT '{"name":"端末ID","note":""}'
  , registered_at    timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"登録日時","note":""}'
  , updated_at       timestamp(3) NOT NULL DEFAULT '1971-01-01 00:00:00.000'                  COMMENT '{"name":"更新日時","note":""}'
- , user_id       binary(16)  NOT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
+ , user_id       binary(16)  DEFAULT NULL                                                    COMMENT '{"name":"更新処理","note":""}'
  , PRIMARY KEY (small_category_id)
 ) COMMENT='{"name":"タグマスタ","note":"小分類を管理する"}';
 

@@ -4,3 +4,4 @@ uvicorn
 ez_setup
 fastapi
 requests
+mysql-connector-python

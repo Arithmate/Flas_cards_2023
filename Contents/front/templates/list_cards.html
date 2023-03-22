@@ -21,7 +21,7 @@
     <div class="u-Container">
       
       <div class="c-Head">
-        <p>Hello, python更新が反映されな？
+        <p>small_category
         </p>
         {% if error_message %}
         <p style="color: red;">{{ error_message }}</p>  
@@ -33,13 +33,24 @@
 
       <div class="c-Body">
         <div class="c-Btn-Wrapper">.
-          <p>メソッド呼び出しボタンですねえどうかな？</p>
-          <button id="js-Btn-Back">
+          <p>メソッド呼び出しボタン</p>
+          <button id="js-Btn">
           </button>
         </div>
       </div>
 
-      <div id="js-Data-Wrapper-Back">
+      <div class="c-Body">
+        <p>小分類いちらん</p>
+        <div id="js-Data-Wrapper" data-list='res'>
+        </div>
+      </div>
+
+      <div class="c-Body">
+        <div class="c-Btn-Wrapper">.
+          <p>カード一覧に遷移ボタン</p>
+          <button id="js-Btn-Go-ListCards">
+          </button>
+        </div>
       </div>
 
     </div>

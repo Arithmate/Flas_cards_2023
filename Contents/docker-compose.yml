@@ -12,7 +12,7 @@ services:
     volumes:
       - ${FRONT_PATH}:/root/src
 
-    command: gunicorn flask_app:app
+    command: gunicorn first_page:app
 
   backend:
     restart: always
@@ -30,13 +30,12 @@ services:
   db:
     image: mysql:8
     container_name: mysql
-    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --log_warnings=1
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: cards-db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: iwashi184
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
       TZ: Asia/Tokyo
     ports:
         - 3306:3306
