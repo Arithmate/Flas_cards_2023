@@ -1,5 +1,5 @@
 # 実行するPythonがあるパス
-pythonpath = './'
+pythonpath = './modules'
 
 # ワーカー数
 workers = 2

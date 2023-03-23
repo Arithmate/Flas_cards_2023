@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    # TODO: index.htmlを返す
     if request.method == 'GET':
         return render_template('small_category.html', success_message='GET OK')
 

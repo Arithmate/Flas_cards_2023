@@ -8,7 +8,7 @@ import requests
 app = Flask(__name__)
 
 
-@app.route("/small_category/view", methods=['GET'])
+@app.route('/sw', methods=['GET'])
 def view():
     """
     htmlを表示

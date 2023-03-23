@@ -1,7 +1,7 @@
 
 var data_list = [];
 var sub_list = [];
-
+const LOCAL_HOST = "http://localhost:5005";
 
 function displayList(data_list) {
   let $target = $("#js-Data-Wrapper");
@@ -18,8 +18,9 @@ function displayList(data_list) {
 }
 
 $('#js-Btn').on('click', function () {
+  var url = LOCAL_HOST + "/sw"
   var param = {
-    url: "/small_category/get_list",
+    url: url,
     type: "get",
     dataType: "json",
   };
@@ -40,7 +41,7 @@ $('#js-Btn').on('click', function () {
 
 $('#js-Btn-Go-ListCards').on('click', function () {
   var param = {
-    url: "/small_category/get_list",
+    url: "/small_category/view",
     type: "get",
     dataType: "json",
   };
