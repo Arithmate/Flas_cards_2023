@@ -24,8 +24,8 @@ daemon = False
 # プロセスの名前
 proc_name = 'my_python_app'
 
-# # エラーログ
-# errorlog = './logs/error_log.txt'
+# エラーログ
+errorlog = '-'
 
-# # アクセスログ
-# accesslog = './logs/access_log.txt'
+# アクセスログ
+accesslog = '-'
