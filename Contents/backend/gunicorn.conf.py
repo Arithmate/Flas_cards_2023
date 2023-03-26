@@ -22,7 +22,7 @@ reload = True
 daemon = False
 
 # プロセスの名前
-proc_name = 'my_python_app'
+# proc_name = 'my_python_app'
 
 # エラーログ
 errorlog = '-'
