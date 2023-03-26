@@ -18,7 +18,7 @@ function displayList(data_list) {
 }
 
 $('#js-Btn').on('click', function () {
-  var url = LOCAL_HOST + "/sw"
+  var url = LOCAL_HOST + "/small_category/view"
   var param = {
     url: url,
     type: "get",

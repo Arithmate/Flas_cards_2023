@@ -8,7 +8,7 @@ workers = 2
 # worker_class = 'uvicorn.workers.UvicornWorker'
 
 # IPアドレスとポート
-bind = '0.0.0.0:8000'
+bind = '0.0.0.0:5005'
 
 # プロセスIDを保存するファイル名
 pidfile = 'prod.pid'

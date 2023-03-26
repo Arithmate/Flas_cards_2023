@@ -1,5 +1,5 @@
 # 実行するPythonがあるパス
-pythonpath = './'
+pythonpath = './modules'
 
 # ワーカー数
 workers = 2
@@ -8,7 +8,7 @@ workers = 2
 # worker_class = 'uvicorn.workers.UvicornWorker'
 
 # IPアドレスとポート
-bind = '0.0.0.0:9000'
+bind = '0.0.0.0:5006'
 
 # プロセスIDを保存するファイル名
 pidfile = 'prod.pid'

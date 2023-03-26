@@ -1,13 +1,13 @@
 from flask import Flask
+from flask_cors import CORS
 from flask import request
 from flask import render_template
 from lib.db_util import select, insert
 
 import json
-import requests
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/detail_card/get_list", methods=['GET'])
 def get_list():
@@ -59,4 +59,5 @@ def put(
 
     return None
     
-    
+if __name__ =='__main__':
+    app.run()

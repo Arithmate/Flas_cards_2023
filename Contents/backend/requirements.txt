@@ -1,6 +1,9 @@
 flask==2.0.1
+flask_cors
 Gunicorn
 uvicorn
 ez_setup
 fastapi
+requests
 mysql-connector-python
+gunicorn

@@ -7,12 +7,12 @@ services:
       context: .
       dockerfile: ./front/build/Dockerfile
     ports:
-      - 5005:8000
+      - 5005:5005
     working_dir: '/root/src'
     volumes:
       - ${FRONT_PATH}:/root/src
 
-    command: gunicorn first_page:app
+    command: gunicorn large_category_page:app
 
   backend:
     restart: always
@@ -20,12 +20,12 @@ services:
       context: .
       dockerfile: ./backend/build/Dockerfile
     ports:
-      - 5006:9000
+      - 5006:5006
     working_dir: '/root/src'
     volumes:
       - ${BACKEND_PATH}:/root/src
 
-    command: gunicorn flask_app:app
+    command: gunicorn large_category_page:app
 
   db:
     image: mysql:8

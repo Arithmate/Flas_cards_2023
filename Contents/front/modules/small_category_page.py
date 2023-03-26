@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask import request
 from flask import render_template
 
@@ -6,9 +7,9 @@ import json
 import requests
 
 app = Flask(__name__)
+CORS(app)
 
-
-@app.route('/sw', methods=['GET'])
+@app.route('/small_category/view', methods=['GET'])
 def view():
     """
     htmlを表示
@@ -44,3 +45,6 @@ def put():
 
     res = requests.get(url=url, headers=headers)
     return json.loads(res.text)
+
+if __name__ =='__main__':
+    app.run()
