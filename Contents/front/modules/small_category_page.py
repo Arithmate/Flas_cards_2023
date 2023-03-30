@@ -17,7 +17,7 @@ def view():
     return render_template('small_category.html', success_message='GET OK')
 
 
-@small_category_router.route("/small_category/get_list/<large_category_id_str>", methods=['GET'])
+@small_category_router.route("/small_category/get_list/<large_category_id_str>", methods=['post'])
 def get_list(large_category_id_str):
     """
     バックエンドサーバーにアクセスしてjsonデータを取得

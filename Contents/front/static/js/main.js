@@ -24,6 +24,7 @@ $('#js-Data-Wrapper-ListLargeCategory').ready(function() {
       '<input type="submit" class="List_Btn" value=' + large_category_name +  '>',
     );
   }
+  return
 });
 
 
@@ -49,6 +50,7 @@ $('#js-Data-Wrapper-ListSmallCategory').ready(function() {
       '<input type="submit" class="List_Btn" value=' + small_category_name +  '>',
     );
   }
+  return
 });
 
 
@@ -76,4 +78,5 @@ $('#js-Data-Wrapper-ListCards').ready(function() {
       '<input type="submit" class="List_Btn" value=' + card_name +  '>',
     );
   }
+  return
 });

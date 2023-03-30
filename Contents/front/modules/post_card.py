@@ -8,7 +8,7 @@ import requests
 
 post_card_router = Blueprint("post_card_router", __name__)
 
-@post_card_router.route("/post_card/view", methods=['GET'])
+@post_card_router.route("/post_card/view", methods=['post'])
 def view():
     """
     htmlを表示

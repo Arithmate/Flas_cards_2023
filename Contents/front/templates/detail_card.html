@@ -20,36 +20,21 @@
   <main>
     <div class="u-Container">
       
-      <div class="c-Head">
-        <p>small_category
-        </p>
-        {% if error_message %}
-        <p style="color: red;">{{ error_message }}</p>  
-        {% endif %}
-        {% if success_message %}
-        <p style="color: blue;">{{ success_message }}</p>
-        {% endif %}
-      </div>
+      単語詳細
 
-      <div class="c-Body">
-        <div class="c-Btn-Wrapper">.
-          <p>メソッド呼び出しボタン</p>
-          <button id="js-Btn">
-          </button>
+      <div class="c-Body-List">
+        <div class="c-Btn-For-Move">
+          <form action="/post_card/view" method="post">
+            <p><input type="submit" class="button1" value="単語帳を作る"/></p>
+          </form>
         </div>
       </div>
 
-      <div class="c-Body">
-        <p>小分類いちらん</p>
-        <div id="js-Data-Wrapper" data-list='res'>
-        </div>
-      </div>
-
-      <div class="c-Body">
-        <div class="c-Btn-Wrapper">.
-          <p>カード一覧に遷移ボタン</p>
-          <button id="js-Btn-Go-ListCards">
-          </button>
+      <div class="c-Body-List">
+        <div class="c-Btn-For-Move">
+          <form action="/" method="get">
+            <p><input type="submit" class="button1" value="大分類一覧へ"/></p>
+          </form>
         </div>
       </div>
 

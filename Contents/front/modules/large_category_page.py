@@ -12,18 +12,26 @@ def view():
     """
     htmlを表示
     """
-    return render_template('large_category.html', success_message='GET OK')
+    headers = {
+        "content-Type": "application/json"
+    }
+    host = "http://backend:5006"
+    url = host + "/large_category/get_list"
+
+    response = requests.get(url=url, headers=headers)
+
+    res_json = response.content if response.status_code == 200 else None
+
+    res_json = json.dumps([
+        {"large_category_id": "テストID1", "large_category_name": "テスト大分類1"},
+        {"large_category_id": "テストID2", "large_category_name": "テスト大分類2"},
+        {"large_category_id": "テストID3", "large_category_name": "テスト大分類3"},
+    ])
+
+    return render_template('large_category.html', res_json=res_json)
 
 
-@large_category_router.route("/large_category/view", methods=['GET'])
-def root():
-    """
-    htmlを表示
-    """
-    return render_template('large_category.html', success_message='GET OK')
-
-
-@large_category_router.route("/large_category/get_list", methods=['GET'])
+@large_category_router.route("/large_category/get_list", methods=['post'])
 def get_list():
     """
     バックエンドサーバーにアクセスしてjsonデータを取得

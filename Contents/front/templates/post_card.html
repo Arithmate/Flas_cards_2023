@@ -21,7 +21,7 @@
     <div class="u-Container">
       
       <div class="c-Head-Form-Wrapper">
-        <p class="title">単語帳カード作成</p>
+        <p class="title">単語帳作成</p>
         <form action="insert" method="post">
           <p><label><input type="text" placeholder="単語を入力" name="card_name"></label></p>
           <p><label><input type="text" placeholder="大分類を入力" name="large_category_name"></label></p>
@@ -47,6 +47,14 @@
           <p><label><input type="text" placeholder="タグ5を入力" name="tag_name_4"></label></p>
           <p><input type="submit" class="button1" value="作成"/></p>
         </form>
+      </div>
+
+      <div class="c-Body-List">
+        <div class="c-Btn-For-Move">
+          <form action="/" method="get">
+            <p><input type="submit" class="button1" value="大分類一覧へ"/></p>
+          </form>
+        </div>
       </div>
 
       
