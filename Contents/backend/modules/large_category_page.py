@@ -28,16 +28,5 @@ def get_list():
         ,registered_at;
     """
     record_list = select(sql)
-    large_category_name_list = []
-    large_category_id_list = []
 
-    for record in record_list:
-        large_category_id_list.append(record["large_category_id"])
-        large_category_name_list.append(record["large_category_name"])
-
-    return {
-        "large_category_list": record_list,
-        "large_category_id_list": large_category_id_list,
-        "large_category_name_list": large_category_name_list,
-    }
-
+    return json.dumps(record_list)

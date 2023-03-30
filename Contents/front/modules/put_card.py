@@ -15,7 +15,7 @@ def view():
     """
     return render_template('put_card.html', success_message='GET OK')
 
-@put_card_router.route("/put_card/put", methods=['put'])
+@put_card_router.route("/put_card/update", methods=['put'])
 def put():
     """
     バックエンドサーバーにアクセスしてアップデートを依頼

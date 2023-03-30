@@ -28,9 +28,14 @@ def get_list(large_category_id_str):
     host = "http://backend:5006"
     url = host + f"/small_category/get_list/{large_category_id_str}"
 
-    res = requests.get(url=url, headers=headers)
-    print(res)
+    response = requests.get(url=url, headers=headers)
 
-    res_list = ["小分類1", "小分類2", "小分類3"]
+    res_json = response.content if response.status_code == 200 else None
 
-    return render_template('small_category.html', res_list=res_list)
+    res_json = json.dumps([
+        {"small_category_id": "テストID1", "small_category_name": "テスト小分類1"},
+        {"small_category_id": "テストID2", "small_category_name": "テスト小分類2"},
+        {"small_category_id": "テストID3", "small_category_name": "テスト小分類3"},
+    ])
+
+    return render_template('small_category.html', res_json=res_json)

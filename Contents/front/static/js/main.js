@@ -1,71 +1,79 @@
 
-var data_list = [];
-var sub_list = [];
 const LOCAL_HOST = "http://localhost:5005";
 
-function displayList(data_list) {
-  let $target = $("#js-Data-Wrapper");
-  let data;
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 大分類一覧
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+$('#js-Data-Wrapper-ListLargeCategory').ready(function() {
+
+  var data_list = JSON.parse(data_json)
 
   for (index = 0; index < data_list.length; index++) {
+
     data = data_list[index];
-    $target.append(`
-      <div>
-        <p>`+ data + `</p>
-      </div>
-      `)
+    let large_category_id = data['large_category_id']
+    let large_category_name = data['large_category_name']
+
+    $('#js-Data-Wrapper-ListLargeCategory').append(
+      '<form action="/small_category/get_list/' + large_category_id + '" method="post" id="tmp' + index + '">',
+      '</form>'
+    );
+    $('#tmp' + index).append(
+      '<input type="hidden" name="large_category_id_str" value=' + large_category_id +  '>',
+      '<input type="submit" class="List_Btn" value=' + large_category_name +  '>',
+    );
   }
-}
-
-$('#js-Btn').on('click', function () {
-  var url = LOCAL_HOST + "/small_category/view"
-
-  fetch(url)
-});
-
-$('#js-Data-Wrapper-ListCards').ready(function () {
-  var url = LOCAL_HOST + "/small_category/get_list"
-  const data_list = fetch(url)
-  let $target = $("#js-Data-Wrapper-ListCards");
-
-  displayListBack(data_list, $target);
 });
 
 
-function displayListBack(data_list, $target) {
-  
-  let data;
-  
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 小分類一覧
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+$('#js-Data-Wrapper-ListSmallCategory').ready(function() {
+
+  var data_list = JSON.parse(data_json)
 
   for (index = 0; index < data_list.length; index++) {
+
     data = data_list[index];
-    $target.append(`
-      <div>
-        <p>`+ data + `</p>
-      </div>
-      `)
+    let small_category_id = data['small_category_id']
+    let small_category_name = data['small_category_name']
+
+    $('#js-Data-Wrapper-ListSmallCategory').append(
+      '<form action="/list_cards/get_list/' + small_category_id + '" method="post" id="tmp' + index + '">',
+      '</form>'
+    );
+    $('#tmp' + index).append(
+      '<input type="hidden" name="small_category_id_str" value=' + small_category_id +  '>',
+      '<input type="submit" class="List_Btn" value=' + small_category_name +  '>',
+    );
   }
-}
+});
 
-$('#js-Btn-Back').on('click', function () {
-  const JSON_SEPARATOR = "Separator";
 
-  var param = {
-    url: "/api/user_detail",
-    type: "post",
-    dataType: "json",
-  };
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 単語帳一覧
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+$('#js-Data-Wrapper-ListCards').ready(function() {
 
-  $.ajax(param)
-    .done(function (res) {
-      console.log(res);
-      var temo_json_list = res.content.split(JSON_SEPARATOR)
-      for (var index = 0; index < Object.keys(temo_json_list).length; ++index) {
-        data_list.push(JSON.parse(temo_json_list[index]));
-      }
-      displayListBack(data_list)
+  var data_list = JSON.parse(data_json)
 
-    }).fail(function (res) {
-      alert("display NG");
-    })
+  for (index = 0; index < data_list.length; index++) {
+
+    data = data_list[index];
+    let card_id = data['card_id']
+    let card_name = data['card_name']
+    let note_content = data['note_content']
+
+    $('#js-Data-Wrapper-ListCards').append(
+      '<form action="/detail_card/' + card_id + '" method="post" id="tmp' + index + '">',
+      '</form>'
+    );
+    $('#tmp' + index).append(
+      '<input type="hidden" name="card_id" value=' + card_id +  '>',
+      '<input type="hidden" id="Note_Content" name="note_content" value=' + note_content +  '>',
+      '<input type="submit" class="List_Btn" value=' + card_name +  '>',
+    );
+  }
 });

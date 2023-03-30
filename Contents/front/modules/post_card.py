@@ -15,7 +15,7 @@ def view():
     """
     return render_template('post_card.html', success_message='GET OK')
 
-@post_card_router.route("/post_card/post", methods=['post'])
+@post_card_router.route("/post_card/insert", methods=['post'])
 def post():
     """
     バックエンドサーバーにアクセスしてインサートを依頼
@@ -44,5 +44,5 @@ def post():
     }
 
     requests.post(url=url, headers=headers, data=json.dumps(data))
-    
+
     return render_template('post_card.html', success_message='GET OK')

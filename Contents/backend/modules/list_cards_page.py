@@ -16,32 +16,23 @@ def get_list(small_category_id_str):
     """
     sql = f"""
     SELECT 
-        HEX(card_id)
-        ,card_name
-        ,HEX(primal_note_id)
+        HEX(c.card_id)
+        ,c.card_name
+        ,n.note_content
     FROM
-        Cards01
+        Cards01 as c
+    INNER JOIN
+        Notes01 as n
+    ON
+        c.primal_note_id = s.note_id
     WHERE
-        is_deleted = 0
-        AND small_category_id = UNHEX({small_category_id_str})
+        c.is_deleted = 0
+        AND c.small_category_id = UNHEX({small_category_id_str})
     ORDER BY
-        sort_number
-        ,registered_at;
+        c.sort_number
+        ,c.registered_at;
     """
     record_list = select(sql)
-    card_id_list = []
-    card_name_list = []
-    note_id_list = []
 
-    for record in record_list:
-        card_id_list.append(record["card_id"])
-        card_name_list.append(record["card_name"])
-        note_id_list.append(record["primal_note_id"])
-
-    return {
-        "card_list": record_list,
-        "card_id_list": card_id_list,
-        "card_name_list": card_name_list,
-        "card_and_note_id_list": note_id_list,
-    }
+    return json.dumps(record_list)
 

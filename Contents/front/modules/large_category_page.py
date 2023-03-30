@@ -34,12 +34,14 @@ def get_list():
     host = "http://backend:5006"
     url = host + "/large_category/get_list"
 
-    res = requests.get(url=url, headers=headers)
+    response = requests.get(url=url, headers=headers)
 
-    print("#ーーーーーーーーーーーーーー")
-    print(res.content)
-    print("#ーーーーーーーーーーーーーー")
+    res_json = response.content if response.status_code == 200 else None
 
-    res_list = ["大分類1", "大分類2", "大分類3"]
+    res_json = json.dumps([
+        {"large_category_id": "テストID1", "large_category_name": "テスト大分類1"},
+        {"large_category_id": "テストID2", "large_category_name": "テスト大分類2"},
+        {"large_category_id": "テストID3", "large_category_name": "テスト大分類3"},
+    ])
 
-    return render_template('large_category.html', res_list=res_list)
+    return render_template('large_category.html', res_json=res_json)
