@@ -8,7 +8,14 @@ import requests
 
 put_card_router = Blueprint("put_card_router", __name__)
 
-@put_card_router.route("/put_card", methods=['put'])
+@put_card_router.route("/put_card/view", methods=['GET'])
+def view():
+    """
+    htmlを表示
+    """
+    return render_template('put_card.html', success_message='GET OK')
+
+@put_card_router.route("/put_card/put", methods=['put'])
 def put():
     """
     バックエンドサーバーにアクセスしてアップデートを依頼
@@ -25,8 +32,8 @@ def put():
         "content-Type": "application/json"
     }
     host = "http://backend:5006"
-    url = host + "/detail_card/post"
-    params = {
+    url = host + "/put_card"
+    data = {
         "card_name":request.form["card_name"],
         "large_category_name":request.form["large_category_name"],
         "small_category_name":request.form["small_category_name"],
@@ -36,5 +43,6 @@ def put():
         "study_state":request.form["study_state"],
     }
 
-    res = requests.post(url=url, headers=headers, params=params)
-    return json.loads(res.content)
+    requests.post(url=url, headers=headers, data=json.dumps(data))
+
+    return render_template('put_card.html', success_message='GET OK')

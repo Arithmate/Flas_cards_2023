@@ -12,10 +12,11 @@ import requests
 put_card_router = Blueprint("put_card_router", __name__)
 
 @put_card_router.route("/put_card", methods=['put'])
-def put(body):
+def put():
     """
-    DBにアクセスしてデータをアップデート
+    DBにアクセスしてデータをインサート
     """
+    data = json.loads(request.data.decode('utf-8'))
 
     card_id = uuid.uuid4()
     registered_at = datetime.now()
@@ -24,7 +25,7 @@ def put(body):
     # 大分類設定
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-    large_category_name = body.large_category_name
+    large_category_name = data["large_category_name"]
 
     large_category_sql = f"""
     SELECT 
@@ -36,8 +37,8 @@ def put(body):
         is_deleted = 0
         AND large_category_name = '{large_category_name}';
     """
-
     large_category_record_list = select(large_category_sql)
+    large_category_id = ""
 
     if len(large_category_record_list) == 1:
         large_category_id = large_category_record_list[0]["large_category_id"]
@@ -63,7 +64,7 @@ def put(body):
     # 小分類設定
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-    small_category_name = body.small_category_name
+    small_category_name = data["small_category_name"]
 
     small_category_sql = f"""
     SELECT 
@@ -104,7 +105,7 @@ def put(body):
     # ノート設定
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-    note_conent = body.note_conent
+    note_conent = data["note_conent"]
 
     note_id = uuid.uuid4()
     note_insert_sql = f"""
@@ -127,7 +128,7 @@ def put(body):
     # タグ設定
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-    tag_name_list = body.tag_name_list
+    tag_name_list = data["tag_name_list"]
 
     for tag_name in tag_name_list:
         if tag_name:
@@ -166,9 +167,9 @@ def put(body):
     """
     sort_number = select(sql)[0]["count(*)"]
 
-    card_name = body.card_name
-    significance = body.significance
-    study_state = body.study_state
+    card_name = data["card_name"]
+    significance = data["significance"]
+    study_state = data["study_state"]
 
     sql = f"""
     INSERT INTO Cards01 
@@ -191,5 +192,3 @@ def put(body):
         ,'{study_state}');
     """
     insert(sql)
-
-    return None

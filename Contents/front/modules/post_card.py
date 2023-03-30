@@ -8,7 +8,14 @@ import requests
 
 post_card_router = Blueprint("post_card_router", __name__)
 
-@post_card_router.route("/post_card", methods=['post'])
+@post_card_router.route("/post_card/view", methods=['GET'])
+def view():
+    """
+    htmlを表示
+    """
+    return render_template('post_card.html', success_message='GET OK')
+
+@post_card_router.route("/post_card/post", methods=['post'])
 def post():
     """
     バックエンドサーバーにアクセスしてインサートを依頼
@@ -25,8 +32,8 @@ def post():
         "content-Type": "application/json"
     }
     host = "http://backend:5006"
-    url = host + "/detail_card/post"
-    params = {
+    url = host + "/post_card"
+    data = {
         "card_name":request.form["card_name"],
         "large_category_name":request.form["large_category_name"],
         "small_category_name":request.form["small_category_name"],
@@ -36,5 +43,6 @@ def post():
         "study_state":request.form["study_state"],
     }
 
-    res = requests.post(url=url, headers=headers, params=params)
-    return json.loads(res.content)
+    requests.post(url=url, headers=headers, data=json.dumps(data))
+    
+    return render_template('post_card.html', success_message='GET OK')

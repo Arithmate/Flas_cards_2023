@@ -8,3 +8,26 @@
 .c-Head {
     margin:10px;
 }
+
+.c-Head-Form-Wrapper {
+    margin:10px;
+
+    textarea {
+        min-width: 400px;
+        min-height: 100px;
+    }
+
+    input {
+        min-width: 400px;
+        min-height: 20px;
+    }
+
+    input.button1 {
+        min-width: 100px;
+        min-height: 20px;
+    }
+
+    p.title {
+        font-size: 200%;
+    }
+}

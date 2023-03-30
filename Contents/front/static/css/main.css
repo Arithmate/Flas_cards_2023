@@ -7,4 +7,23 @@
 
 .c-Head {
   margin: 10px;
+}
+
+.c-Head-Form-Wrapper {
+  margin: 10px;
+}
+.c-Head-Form-Wrapper textarea {
+  min-width: 400px;
+  min-height: 100px;
+}
+.c-Head-Form-Wrapper input {
+  min-width: 400px;
+  min-height: 20px;
+}
+.c-Head-Form-Wrapper input.button1 {
+  min-width: 100px;
+  min-height: 20px;
+}
+.c-Head-Form-Wrapper p.title {
+  font-size: 200%;
 }/*# sourceMappingURL=main.css.map */

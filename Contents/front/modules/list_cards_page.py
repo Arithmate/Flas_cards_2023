@@ -31,21 +31,3 @@ def get_list(small_category_id_str):
 
     res = requests.get(url=url, headers=headers)
     return json.loads(res.text)
-
-
-@list_cards_router.route("/list_cards/put", methods=['PUT'])
-def put():
-    """
-    バックエンドサーバーにアクセスしてインサートを依頼
-    """
-    headers = {
-        "content-Type": "application/json"
-    }
-    host = "http://backend:5006"
-    url = host + "/list_cards/put"
-
-    res = requests.get(url=url, headers=headers)
-    return json.loads(res.text)
-
-if __name__ =='__main__':
-    app.run()
