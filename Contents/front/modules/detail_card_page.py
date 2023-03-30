@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_cors import CORS
 from flask import request
 from flask import render_template
@@ -6,10 +6,10 @@ from flask import render_template
 import json
 import requests
 
-app = Flask(__name__)
-CORS(app)
+detail_card_router = Blueprint("detail_card_router", __name__)
 
-@app.route("/detail_card/view", methods=['GET'])
+
+@detail_card_router.route("/detail_card/view", methods=['GET'])
 def view():
     """
     htmlを表示
@@ -17,34 +17,16 @@ def view():
     return render_template('detail_card.html', success_message='GET OK')
 
 
-@app.route("/detail_card/get_list", methods=['GET'])
-def get_list():
+@detail_card_router.route("/detail_card/<card_id_str>", methods=['GET'])
+def get_list(card_id_str):
     """
     バックエンドサーバーにアクセスしてjsonデータを取得
     """
     headers = {
         "content-Type": "application/json"
     }
-    host = "http://backend:9000"
-    url = host + "/detail_card/get_list"
+    host = "http://backend:5006"
+    url = host + f"/detail_card/{card_id_str}"
 
     res = requests.get(url=url, headers=headers)
     return json.loads(res.text)
-
-
-@app.route("/detail_card/put", methods=['PUT'])
-def put():
-    """
-    バックエンドサーバーにアクセスしてインサートを依頼
-    """
-    headers = {
-        "content-Type": "application/json"
-    }
-    host = "http://backend:9000"
-    url = host + "/detail_card/put"
-
-    res = requests.get(url=url, headers=headers)
-    return json.loads(res.text)
-
-if __name__ =='__main__':
-    app.run()

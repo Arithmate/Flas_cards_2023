@@ -4,7 +4,7 @@ import mysql.connector
 
 def __db():
     return mysql.connector.connect(
-        host = 'localhost',
+        host = 'mysql',
         user = 'user',
         passwd = 'iwashi184',
         db = 'cardsdb'
@@ -12,11 +12,13 @@ def __db():
 
 def select(sql):
     connect = __db()
-    cursor = connect.cursor()
+    cursor = connect.cursor(dictionary=True)
     cursor.execute(sql)
     res = []
+    print("dbbbbbbbbbbbbbbb")
 
     for row in cursor.fetchall():
+        print("###", row)
         res.append(row)
 
     return res

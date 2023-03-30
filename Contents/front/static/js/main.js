@@ -19,38 +19,23 @@ function displayList(data_list) {
 
 $('#js-Btn').on('click', function () {
   var url = LOCAL_HOST + "/small_category/view"
-  var param = {
-    url: url,
-    type: "get",
-    dataType: "json",
-  };
 
-  $.ajax(param)
-    .done(function (res) {
-      console.log(res);
-      var data_list_from_server = res.content
-      for (var index = 0; index < data_list_from_server.length; ++index) {
-        data_list_for_view.push(JSON.parse(data_list_from_server[index]));
-      }
-      displayList(data_list_for_view)
-
-    }).fail(function (res) {
-      alert("display NG");
-    })
+  fetch(url)
 });
 
-$('#js-Btn-Go-ListCards').on('click', function () {
-  var param = {
-    url: "/small_category/view",
-    type: "get",
-    dataType: "json",
-  };
+$('#js-Data-Wrapper-ListCards').ready(function () {
+  var url = LOCAL_HOST + "/small_category/get_list"
+  const data_list = fetch(url)
+  let $target = $("#js-Data-Wrapper-ListCards");
+
+  displayListBack(data_list, $target);
 });
 
 
-function displayListBack(data_list) {
-  let $target = $("#js-Data-Wrapper-Back");
+function displayListBack(data_list, $target) {
+  
   let data;
+  
 
   for (index = 0; index < data_list.length; index++) {
     data = data_list[index];

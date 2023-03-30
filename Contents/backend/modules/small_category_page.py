@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_cors import CORS
 from flask import request
 from flask import render_template
@@ -6,58 +6,37 @@ from lib.db_util import select, insert
 
 import json
 
-app = Flask(__name__)
-CORS(app)
+small_category_router = Blueprint("small_category_router", __name__)
 
-@app.route("/small_category/get_list", methods=['GET'])
-def get_list():
+@small_category_router.route("/small_category/get_list/<large_category_id_str>", methods=['GET'])
+def get_list(large_category_id_str):
     """
     DBにアクセスしてデータを取得
     jsonデータを返却
     """
     sql = f"""
-    SELECT *
-    FROM SmallCategory01
-    WHERE is_deleted = 0
-    ORDER BY sort_number;
+    SELECT 
+        HEX(small_category_id)
+        ,small_category_name
+    FROM
+        SmallCategory01
+    WHERE
+        is_deleted = 0
+        AND large_category_id = UNHEX({large_category_id_str})
+    ORDER BY
+        sort_number
+        ,registered_at;
     """
+    record_list = select(sql)
+    small_category_name_list = []
+    small_category_id_list = []
 
-    res = select(sql)
+    for record in record_list:
+        small_category_id_list.append(record["small_category_id"])
+        small_category_name_list.append(record["small_category_name"])
 
-    return res
-
-@app.route("/small_category/put", methods=['PUT'])
-def put(
-    small_category_id,
-    small_category_name,
-):
-    """
-    DBにアクセスしてデータをインサート
-    """
-    sort_number = 0
-
-    sql = f"""
-    SELECT count(*)
-    FROM SmallCategory01
-    WHERE is_deleted = 0
-    ORDER BY sort_number;
-    """
-    sort_number = select(sql)[0]["count(*)"]
-
-    sql = f"""
-    INSERT INTO SmallCategory01 
-    (small_category_id
-    ,small_category_name
-    ,sort_number)
-    VALUES
-    (UNHEX({small_category_id})
-    ,'{small_category_name}'
-    ,{sort_number});
-    """
-
-    insert(sql)
-
-    return None
-    
-if __name__ =='__main__':
-    app.run()
+    return {
+        "small_category_list": record_list,
+        "small_category_id_list": small_category_id_list,
+        "small_category_name_list": small_category_name_list,
+    }

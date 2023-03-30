@@ -53,6 +53,32 @@
         </div>
       </div>
 
+      <form action="post_card" method="post">
+        <input type="submit" id="button1" value="単語帳カード作成"/>
+        <p><label>単語: <input type="text" name="card_name" size="40"></label></p>
+        <p><label>大分類: <input type="text" name="large_category_name" size="40"></label></p>
+        <p><label>小分類: <input type="text" name="small_category_name" size="40"></label></p>
+        <p><label>ノート: <input type="text" name="note_conent" size="200"></label></p>
+        <p><label>重要度: <select name="significance">
+          <option value="1">★</option>
+          <option value="2">★★</option>
+          <option value="3">★★★</option>
+          <option value="4">★★★★</option>
+          <option value="5">★★★★★</option>
+          </select></label></p>
+        <p><label>学習状況: <select name="study_state">
+          <option value="0">苦手</option>
+          <option value="1">学習中</option>
+          <option value="2">得意</option>
+          <option value="3">完璧</option>
+          </select></label></p> 
+        <p><label>タグ1: <input type="text" name="tag_name_0" size="40"></label></p>
+        <p><label>タグ2: <input type="text" name="tag_name_1" size="40"></label></p>
+        <p><label>タグ3: <input type="text" name="tag_name_2" size="40"></label></p>
+        <p><label>タグ4: <input type="text" name="tag_name_3" size="40"></label></p>
+        <p><label>タグ5: <input type="text" name="tag_name_4" size="40"></label></p>
+      </form>
+
     </div>
 
   </main>

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_cors import CORS
 from flask import request
 from flask import render_template
@@ -6,58 +6,38 @@ from lib.db_util import select, insert
 
 import json
 
-app = Flask(__name__)
-CORS(app)
+large_category_router = Blueprint("large_category_router", __name__)
 
-@app.route("/large_category/get_list", methods=['GET'])
+
+@large_category_router.route("/large_category/get_list", methods=['GET'])
 def get_list():
     """
     DBにアクセスしてデータを取得
     jsonデータを返却
     """
     sql = f"""
-    SELECT *
-    FROM SmallCategory01
-    WHERE is_deleted = 0
-    ORDER BY sort_number;
+    SELECT 
+        HEX(large_category_id)
+        ,large_category_name
+    FROM
+        LargeCategory01
+    WHERE
+        is_deleted = 0
+    ORDER BY
+        sort_number
+        ,registered_at;
     """
+    record_list = select(sql)
+    large_category_name_list = []
+    large_category_id_list = []
 
-    res = select(sql)
+    for record in record_list:
+        large_category_id_list.append(record["large_category_id"])
+        large_category_name_list.append(record["large_category_name"])
 
-    return res
+    return {
+        "large_category_list": record_list,
+        "large_category_id_list": large_category_id_list,
+        "large_category_name_list": large_category_name_list,
+    }
 
-@app.route("/large_category/put", methods=['PUT'])
-def put(
-    large_category_id,
-    large_category_name,
-):
-    """
-    DBにアクセスしてデータをインサート
-    """
-    sort_number = 0
-
-    sql = f"""
-    SELECT count(*)
-    FROM SmallCategory01
-    WHERE is_deleted = 0
-    ORDER BY sort_number;
-    """
-    sort_number = select(sql)[0]["count(*)"]
-
-    sql = f"""
-    INSERT INTO SmallCategory01 
-    (large_category_id
-    ,large_category_name
-    ,sort_number)
-    VALUES
-    (UNHEX({large_category_id})
-    ,'{large_category_name}'
-    ,{sort_number});
-    """
-
-    insert(sql)
-
-    return None
-    
-if __name__ =='__main__':
-    app.run()

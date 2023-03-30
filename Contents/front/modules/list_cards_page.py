@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_cors import CORS
 from flask import request
 from flask import render_template
@@ -6,10 +6,11 @@ from flask import render_template
 import json
 import requests
 
-app = Flask(__name__)
-CORS(app)
 
-@app.route("/list_cards/view", methods=['GET'])
+list_cards_router = Blueprint("list_cards_router", __name__)
+
+
+@list_cards_router.route("/list_cards/view", methods=['GET'])
 def view():
     """
     htmlを表示
@@ -17,22 +18,22 @@ def view():
     return render_template('list_cards.html', success_message='GET OK')
 
 
-@app.route("/list_cards/get_list", methods=['GET'])
-def get_list():
+@list_cards_router.route("/list_cards/get_list/<small_category_id_str>", methods=['GET'])
+def get_list(small_category_id_str):
     """
     バックエンドサーバーにアクセスしてjsonデータを取得
     """
     headers = {
         "content-Type": "application/json"
     }
-    host = "http://backend:9000"
-    url = host + "/list_cards/get_list"
+    host = "http://backend:5006"
+    url = host + f"/list_cards/get_list/{small_category_id_str}"
 
     res = requests.get(url=url, headers=headers)
     return json.loads(res.text)
 
 
-@app.route("/list_cards/put", methods=['PUT'])
+@list_cards_router.route("/list_cards/put", methods=['PUT'])
 def put():
     """
     バックエンドサーバーにアクセスしてインサートを依頼
@@ -40,7 +41,7 @@ def put():
     headers = {
         "content-Type": "application/json"
     }
-    host = "http://backend:9000"
+    host = "http://backend:5006"
     url = host + "/list_cards/put"
 
     res = requests.get(url=url, headers=headers)

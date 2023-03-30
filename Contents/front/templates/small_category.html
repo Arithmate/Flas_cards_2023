@@ -21,7 +21,7 @@
     <div class="u-Container">
       
       <div class="c-Head">
-        <p>large_category
+        <p>small_category
         </p>
         {% if error_message %}
         <p style="color: red;">{{ error_message }}</p>  
@@ -40,8 +40,9 @@
       </div>
 
       <div class="c-Body">
-        <p>dai分類いちらん</p>
+        <p>小分類いちらん</p>
         <div id="js-Data-Wrapper" data-list='res'>
+          <p>{{ res_list }}</p>
         </div>
       </div>
 

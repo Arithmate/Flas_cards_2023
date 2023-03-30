@@ -1,14 +1,13 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_cors import CORS
 from flask import request
 from flask import render_template
 import json
 import requests
 
-app = Flask(__name__)
-CORS(app)
+large_category_router = Blueprint("large_category_router", __name__)
 
-@app.route("/", methods=['GET'])
+@large_category_router.route("/", methods=['GET'])
 def view():
     """
     htmlを表示
@@ -16,7 +15,7 @@ def view():
     return render_template('large_category.html', success_message='GET OK')
 
 
-@app.route("/large_category/view", methods=['GET'])
+@large_category_router.route("/large_category/view", methods=['GET'])
 def root():
     """
     htmlを表示
@@ -24,7 +23,7 @@ def root():
     return render_template('large_category.html', success_message='GET OK')
 
 
-@app.route("/large_category/get_list", methods=['GET'])
+@large_category_router.route("/large_category/get_list", methods=['GET'])
 def get_list():
     """
     バックエンドサーバーにアクセスしてjsonデータを取得
@@ -32,26 +31,15 @@ def get_list():
     headers = {
         "content-Type": "application/json"
     }
-    host = "http://backend:9000"
+    host = "http://backend:5006"
     url = host + "/large_category/get_list"
 
     res = requests.get(url=url, headers=headers)
-    return json.loads(res.text)
 
+    print("#ーーーーーーーーーーーーーー")
+    print(res.content)
+    print("#ーーーーーーーーーーーーーー")
 
-@app.route("/large_category/put", methods=['PUT'])
-def put():
-    """
-    バックエンドサーバーにアクセスしてインサートを依頼
-    """
-    headers = {
-        "content-Type": "application/json"
-    }
-    host = "http://backend:9000"
-    url = host + "/large_category/put"
+    res_list = ["大分類1", "大分類2", "大分類3"]
 
-    res = requests.get(url=url, headers=headers)
-    return json.loads(res.text)
-
-if __name__ =='__main__':
-    app.run()
+    return render_template('large_category.html', res_list=res_list)

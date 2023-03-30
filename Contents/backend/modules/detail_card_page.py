@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_cors import CORS
 from flask import request
 from flask import render_template
@@ -6,58 +6,48 @@ from lib.db_util import select, insert
 
 import json
 
-app = Flask(__name__)
-CORS(app)
+detail_card_router = Blueprint("detail_card_router", __name__)
 
-@app.route("/detail_card/get_list", methods=['GET'])
-def get_list():
+@detail_card_router.route("/detail_card/<card_id_str>", methods=['GET'])
+def get_detail(card_id_str):
     """
     DBにアクセスしてデータを取得
     jsonデータを返却
     """
     sql = f"""
-    SELECT *
-    FROM SmallCategory01
-    WHERE is_deleted = 0
-    ORDER BY sort_number;
+    SELECT 
+        HEX(c.card_id)
+        ,c.card_name
+        ,c.significance
+        ,c.study_state
+
+        ,l.large_category_name
+
+        ,s.small_category_name
+
+        ,n.note_content
+    FROM
+        Cards01 as c
+    INNER JOIN
+        LargeCategory01 as l
+    ON
+        c.large_category_id = l.large_category_id
+    INNER JOIN
+        SmallCategory01 as s
+    ON
+        c.small_category_id = s.small_category_id
+    INNER JOIN
+        Notes01 as n
+    ON
+        c.primal_note_id = s.note_id
+    WHERE
+        c.is_deleted = 0
+        AND c.card_id = UNHEX({card_id_str})
+    ORDER BY
+        c.sort_number
+        ,c.registered_at;
     """
+    record = select(sql)[0]
 
-    res = select(sql)
+    return {"card_detail": record}
 
-    return res
-
-@app.route("/detail_card/put", methods=['PUT'])
-def put(
-    detail_card_id,
-    detail_card_name,
-):
-    """
-    DBにアクセスしてデータをインサート
-    """
-    sort_number = 0
-
-    sql = f"""
-    SELECT count(*)
-    FROM SmallCategory01
-    WHERE is_deleted = 0
-    ORDER BY sort_number;
-    """
-    sort_number = select(sql)[0]["count(*)"]
-
-    sql = f"""
-    INSERT INTO SmallCategory01 
-    (detail_card_id
-    ,detail_card_name
-    ,sort_number)
-    VALUES
-    (UNHEX({detail_card_id})
-    ,'{detail_card_name}'
-    ,{sort_number});
-    """
-
-    insert(sql)
-
-    return None
-    
-if __name__ =='__main__':
-    app.run()
