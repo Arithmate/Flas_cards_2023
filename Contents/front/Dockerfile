@@ -1,4 +1,4 @@
-FROM python:3.9.7-slim-buster
+FROM python:3.7.3-alpine
 
 USER root
 WORKDIR /root/src
@@ -6,8 +6,6 @@ WORKDIR /root/src
 ENV FLASK_APP=app.py
 RUN pip3 install --upgrade pip
 COPY ./requirements.txt .
-RUN pip3 install numpy
-RUN pip3 install --no-cache-dir pandas --no-build-isolation
 RUN pip3 install --upgrade pip setuptools wheel
 RUN pip3 install -r requirements.txt
  

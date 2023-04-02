@@ -16,7 +16,7 @@ def get_detail(card_id_str):
     """
     sql = f"""
     SELECT 
-        HEX(c.card_id)
+        c.card_id
         ,c.card_name
         ,c.significance
         ,c.study_state
@@ -42,7 +42,7 @@ def get_detail(card_id_str):
         c.primal_note_id = s.note_id
     WHERE
         c.is_deleted = 0
-        AND c.card_id = UNHEX({card_id_str})
+        AND c.card_id = '{card_id_str}'
     ORDER BY
         c.sort_number
         ,c.registered_at;

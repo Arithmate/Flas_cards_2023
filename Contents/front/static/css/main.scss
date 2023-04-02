@@ -1,12 +1,25 @@
 .u-Container {
     max-width :600px;
+    min-height: 1500px;
     margin-right: auto;
     margin-left: auto;
     text-align: center;
-}
+    background-color:rgb(172, 232, 232);
+    color:rgb(14, 34, 36);
 
-.c-Head {
-    margin:10px;
+    .c-Massage-Wrapper{
+        margin:10px;
+        color:blue;
+    }
+
+    .c-Head {
+        font-size: 200%;
+        padding:10px;
+        
+        p {
+            margin:0px;
+        }
+    }
 }
 
 .c-Head-Form-Wrapper {
@@ -32,11 +45,43 @@
     }
 }
 
-.c-Body-List {
+input.List_Btn {
     margin:10px;
-    padding:10px;
+    min-width: 400px;
+}
 
-    input.List_Btn {
+.c-Wrapper-ListCards {
+    display: flex;
+    justify-content:center;
+    flex-wrap: wrap;
+
+    input.Card_List_Btn {
+        min-width: 150px;
+        min-height: 40px;
         margin:10px;
     }
 }
+
+.c-Wrapper-Btn-For-Move {
+    margin:30px
+}
+
+.c-Note-Wrapper {
+    max-width: 400px;
+    min-height: 400px;
+    background-color:rgb(255, 255, 255);
+    margin-right: auto;
+    margin-left: auto;
+
+    .a-title{
+        margin:10px;
+        padding:10px;
+        font-size: 120%;
+    }
+
+    .a-Note-Content{
+        margin:10px;
+        padding:10px;
+    }
+}
+

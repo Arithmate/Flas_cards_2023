@@ -15,10 +15,8 @@ def select(sql):
     cursor = connect.cursor(dictionary=True)
     cursor.execute(sql)
     res = []
-    print("dbbbbbbbbbbbbbbb")
 
     for row in cursor.fetchall():
-        print("###", row)
         res.append(row)
 
     return res
@@ -26,6 +24,12 @@ def select(sql):
 def insert(sql):
     connect = __db()
     cursor = connect.cursor()
+    print("#ーーーーーーーーーーーーーーーーー")
+    print(sql)
+    print("#ーーーーーーーーーーーーーーーーー")
     cursor.execute(sql)
+    connect.commit()
+    cursor.close()
+    connect.close()
 
     return None

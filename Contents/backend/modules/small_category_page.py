@@ -16,13 +16,13 @@ def get_list(large_category_id_str):
     """
     sql = f"""
     SELECT 
-        HEX(small_category_id)
+        small_category_id
         ,small_category_name
     FROM
         SmallCategory01
     WHERE
         is_deleted = 0
-        AND large_category_id = UNHEX({large_category_id_str})
+        AND large_category_id = '{large_category_id_str}'
     ORDER BY
         sort_number
         ,registered_at;

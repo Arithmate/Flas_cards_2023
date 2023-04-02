@@ -19,24 +19,46 @@
 <body>
   <main>
     <div class="u-Container">
+
+      <div class="c-Head">
+        <p>単語帳作成</p>
+      </div>
+      
+      <div class="c-Massage-Wrapper">
+        <p>{{message}}</p>
+      </div>
+
       
       <div class="c-Head-Form-Wrapper">
-        <p class="title">単語帳作成</p>
         <form action="insert" method="post">
           <p><label><input type="text" placeholder="単語を入力" name="card_name"></label></p>
-          <p><label><input type="text" placeholder="大分類を入力" name="large_category_name"></label></p>
-          <p><label><input type="text" placeholder="小分類を入力" name="small_category_name"></label></p>
-          <p><label><textarea name="note_conent" placeholder="ノートを入力"></textarea></label></p>
+          <p><label><input type="text" id="a-Large" value="" placeholder="大分類を入力" name="large_category_name"></label></p>
+          <p><label><input type="text" id="a-Small" value="" placeholder="小分類を入力" name="small_category_name"></label></p>
+
+          <script>
+            var LargeElement = document.querySelector('input[id="a-Large"]')
+            var large_category_str = "{{large_category_name}}"
+            if (large_category_str) {
+              LargeElement.setAttribute('value',large_category_str);}
+
+
+            var SmallElement = document.querySelector('input[id="a-Small"]')
+            var small_category_str = "{{small_category_name}}"
+            if (small_category_str) {
+              SmallElement.setAttribute('value',small_category_str);}
+          </script>
+
+          <p><label><textarea name="note_content" placeholder="ノートを入力"></textarea></label></p>
           <p><label>重要度: <select name="significance">
             <option value="1">★</option>
             <option value="2">★★</option>
-            <option value="3">★★★</option>
+            <option value="3" selected>★★★</option>
             <option value="4">★★★★</option>
             <option value="5">★★★★★</option>
             </select></label></p>
           <p><label>学習状況: <select name="study_state">
             <option value="0">苦手</option>
-            <option value="1">学習中</option>
+            <option value="1" selected>学習中</option>
             <option value="2">得意</option>
             <option value="3">完璧</option>
             </select></label></p> 
@@ -49,14 +71,11 @@
         </form>
       </div>
 
-      <div class="c-Body-List">
-        <div class="c-Btn-For-Move">
-          <form action="/" method="get">
-            <p><input type="submit" class="button1" value="大分類一覧へ"/></p>
-          </form>
-        </div>
+      <div class="c-Wrapper-Btn-For-Move">
+        <form action="/large_category/get_list" method="get">
+          <p><input type="submit" value="大分類一覧へ"/></p>
+        </form>
       </div>
-
       
     </div>
 

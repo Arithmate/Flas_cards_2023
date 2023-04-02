@@ -20,6 +20,17 @@ def post():
     """
     バックエンドサーバーにアクセスしてインサートを依頼
     """
+
+    large_category_name = request.form["large_category_name"]
+    small_category_name = request.form["small_category_name"]
+
+    if (not request.form["card_name"]
+        or not large_category_name
+        or not small_category_name
+        ):
+
+        return render_template('post_card.html', message='「単語名・大分類・小分類」は必須入力です。')
+
     tag_name_list = [
         request.form["tag_name_0"] or "",
         request.form["tag_name_1"] or "",
@@ -35,9 +46,9 @@ def post():
     url = host + "/post_card"
     data = {
         "card_name":request.form["card_name"],
-        "large_category_name":request.form["large_category_name"],
-        "small_category_name":request.form["small_category_name"],
-        "note_conent":request.form["note_conent"],
+        "large_category_name":large_category_name,
+        "small_category_name":small_category_name,
+        "note_content":request.form["note_content"],
         "tag_name_list":tag_name_list,
         "significance":request.form["significance"],
         "study_state":request.form["study_state"],
@@ -45,4 +56,9 @@ def post():
 
     requests.post(url=url, headers=headers, data=json.dumps(data))
 
-    return render_template('post_card.html', success_message='GET OK')
+    return render_template(
+        'post_card.html',
+        message='登録に成功しました。',
+        large_category_name=large_category_name,
+        small_category_name=small_category_name,
+    )

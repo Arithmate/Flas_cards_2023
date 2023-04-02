@@ -9,14 +9,6 @@ import requests
 detail_card_router = Blueprint("detail_card_router", __name__)
 
 
-@detail_card_router.route("/detail_card/view", methods=['GET'])
-def view():
-    """
-    htmlを表示
-    """
-    return render_template('detail_card.html', success_message='GET OK')
-
-
 @detail_card_router.route("/detail_card/<card_id_str>", methods=['post'])
 def get_list(card_id_str):
     """
@@ -30,7 +22,7 @@ def get_list(card_id_str):
 
     response = requests.get(url=url, headers=headers)
 
-    res_json = response.content if response.status_code == 200 else None
+    res_json = response.content.decode() if response.status_code == 200 else None
 
     res_json = json.dumps([
         {"card_id": "テストID1", "card_name": "テスト小分類1", "note_content": "テストノート1"},

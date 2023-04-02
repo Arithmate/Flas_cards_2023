@@ -16,7 +16,7 @@ def get_list(small_category_id_str):
     """
     sql = f"""
     SELECT 
-        HEX(c.card_id)
+        c.card_id
         ,c.card_name
         ,n.note_content
     FROM
@@ -24,10 +24,10 @@ def get_list(small_category_id_str):
     INNER JOIN
         Notes01 as n
     ON
-        c.primal_note_id = s.note_id
+        c.primal_note_id = n.note_id
     WHERE
         c.is_deleted = 0
-        AND c.small_category_id = UNHEX({small_category_id_str})
+        AND c.small_category_id = '{small_category_id_str}'
     ORDER BY
         c.sort_number
         ,c.registered_at;

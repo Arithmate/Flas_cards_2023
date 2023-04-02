@@ -18,7 +18,7 @@ def put():
     """
     data = json.loads(request.data.decode('utf-8'))
 
-    card_id = uuid.uuid4()
+    card_id = str(uuid.uuid4()).replace('-','')
     registered_at = datetime.now()
 
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -45,7 +45,7 @@ def put():
         large_category_name = large_category_record_list[0]["large_category_name"]
 
     else:
-        large_category_id = uuid.uuid4()
+        large_category_id = str(uuid.uuid4()).replace('-','')
         large_category_insert_sql = f"""
         INSERT INTO LargeCategory01 
             (large_category_id
@@ -84,7 +84,7 @@ def put():
         small_category_name = small_category_record_list[0]["small_category_name"]
 
     else:
-        small_category_id = uuid.uuid4()
+        small_category_id = str(uuid.uuid4()).replace('-','')
         small_category_insert_sql = f"""
         INSERT INTO SmallCategory01 
             (small_category_id
@@ -105,20 +105,20 @@ def put():
     # ノート設定
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-    note_conent = data["note_conent"]
+    note_content = data["note_content"]
 
-    note_id = uuid.uuid4()
+    note_id = str(uuid.uuid4()).replace('-','')
     note_insert_sql = f"""
     INSERT INTO Notes01 
         (note_id
         ,card_id
-        ,note_conent
+        ,note_content
         ,registered_at
         ,updated_at)
     VALUES
         ({note_id}
         ,{card_id}
-        ,'{note_conent}'
+        ,'{note_content}'
         ,'{registered_at}'
         ,'{registered_at}');
     """
@@ -132,7 +132,7 @@ def put():
 
     for tag_name in tag_name_list:
         if tag_name:
-            tag_id = uuid.uuid4()
+            tag_id = str(uuid.uuid4()).replace('-','')
             tag_insert_sql = f"""
             INSERT INTO Tags01 
                 (tag_id

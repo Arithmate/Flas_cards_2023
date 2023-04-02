@@ -20,22 +20,18 @@
   <main>
     <div class="u-Container">
       
-      単語詳細
-
-      <div class="c-Body-List">
-        <div class="c-Btn-For-Move">
-          <form action="/post_card/view" method="post">
-            <p><input type="submit" class="button1" value="単語帳を作る"/></p>
-          </form>
-        </div>
+      <div class="c-Head">
+        <p>単語詳細</p>
       </div>
 
-      <div class="c-Body-List">
-        <div class="c-Btn-For-Move">
-          <form action="/" method="get">
-            <p><input type="submit" class="button1" value="大分類一覧へ"/></p>
-          </form>
-        </div>
+      <div class="c-Wrapper-Btn-For-Move">
+        <form action="/post_card/view" method="post">
+          <p><input type="submit" value="単語帳を作る"/></p>
+        </form>
+      
+        <form action="/large_category/get_list" method="get">
+          <p><input type="submit" value="大分類一覧へ"/></p>
+        </form>
       </div>
 
     </div>

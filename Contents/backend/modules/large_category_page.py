@@ -17,7 +17,7 @@ def get_list():
     """
     sql = f"""
     SELECT 
-        HEX(large_category_id)
+        large_category_id
         ,large_category_name
     FROM
         LargeCategory01

@@ -37,7 +37,7 @@ def put():
         "card_name":request.form["card_name"],
         "large_category_name":request.form["large_category_name"],
         "small_category_name":request.form["small_category_name"],
-        "note_conent":request.form["note_conent"],
+        "note_content":request.form["note_content"],
         "tag_name_list":tag_name_list,
         "significance":request.form["significance"],
         "study_state":request.form["study_state"],

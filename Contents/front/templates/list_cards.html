@@ -21,25 +21,31 @@
     
     <div class="u-Container">
       
-      <div class="c-Body-List">
-        <p>単語帳一覧</p>
-        <div id="js-Data-Wrapper-ListCards">
-        </div>
+      <div class="c-Head">
+        <p>単語一覧</p>
       </div>
 
       <div class="c-Body-List">
-        <div class="c-Btn-For-Move">
-          <form action="/post_card/view" method="post">
-            <p><input type="submit" class="button1" value="単語帳を作る"/></p>
-          </form>
+        <div id="js-Data-Wrapper-ListCards" class="c-Wrapper-ListCards">
         </div>
       </div>
 
-      <div class="c-Body-List">
-        <div class="c-Btn-For-Move">
-          <form action="/" method="get">
-            <p><input type="submit" class="button1" value="大分類一覧へ"/></p>
-          </form>
+      <div class="c-Wrapper-Btn-For-Move">
+        <form action="/post_card/view" method="post">
+          <p><input type="submit" value="単語帳を作る"/></p>
+        </form>
+      
+        <form action="/large_category/get_list" method="get">
+          <p><input type="submit" value="大分類一覧へ"/></p>
+        </form>
+      </div>
+
+      <div class="c-Note-Wrapper">
+        <div id="js-Data-Wrapper-NoteTitle" class="a-title">
+          <p id=js-Note-title class="a-title">ノート</p>
+        </div>
+        <div id="js-Data-Wrapper-Note">
+          <p id="js-Note-Content" class="a-Note-Content">単語にカーソルを合わせてください。</p>
         </div>
       </div>
 
