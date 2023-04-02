@@ -1,0 +1,15 @@
+[2023-03-21 10:09:25 +0000] [1] [INFO] Starting gunicorn 20.1.0
+[2023-03-21 10:09:25 +0000] [1] [INFO] Listening at: http://0.0.0.0:5006 (1)
+[2023-03-21 10:09:25 +0000] [1] [INFO] Using worker: sync
+[2023-03-21 10:09:25 +0000] [7] [INFO] Booting worker with pid: 7
+[2023-03-21 10:09:25 +0000] [8] [INFO] Booting worker with pid: 8
+[2023-03-21 10:11:26 +0000] [8] [INFO] Worker reloading: /src/app/gunicorn.conf.py modified
+[2023-03-21 10:11:26 +0000] [7] [INFO] Worker reloading: /src/app/gunicorn.conf.py modified
+[2023-03-21 10:11:26 +0000] [8] [INFO] Worker exiting (pid: 8)
+[2023-03-21 10:11:26 +0000] [7] [INFO] Worker exiting (pid: 7)
+[2023-03-21 10:11:26 +0000] [11] [INFO] Booting worker with pid: 11
+[2023-03-21 10:11:26 +0000] [12] [INFO] Booting worker with pid: 12
+[2023-03-21 10:11:36 +0000] [1] [INFO] Handling signal: term
+[2023-03-21 10:11:36 +0000] [12] [INFO] Worker exiting (pid: 12)
+[2023-03-21 10:11:36 +0000] [11] [INFO] Worker exiting (pid: 11)
+[2023-03-21 10:11:36 +0000] [1] [INFO] Shutting down: Master

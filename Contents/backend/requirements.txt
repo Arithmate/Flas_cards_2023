@@ -1,0 +1,9 @@
+flask==2.0.1
+flask_cors
+uvicorn
+ez_setup
+fastapi
+requests
+mysql-connector-python==8.0.17
+gunicorn==20.1.0
+distro

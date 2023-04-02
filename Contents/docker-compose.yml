@@ -1,0 +1,49 @@
+version: "3"
+services:
+
+  front:
+    restart: always
+    build:
+      context: ${FRONT_PATH}
+      dockerfile: ./Dockerfile
+    ports:
+      - 5005:5005
+    volumes:
+      - ${FRONT_PATH}:/root/src
+
+
+  backend:
+    restart: always
+    build:
+      context: ${BACKEND_PATH}
+      dockerfile: ./Dockerfile
+    ports:
+      - 5006:5006
+    volumes:
+      - ${BACKEND_PATH}:/root/src
+
+  db:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      TZ: Asia/Tokyo
+    ports:
+        - 3306:3306
+    volumes:
+        - db-store:/var/lib
+        - ./db/query:/docker-entrypoint-initdb.d 
+    command:
+      - mysqld
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+volumes:
+  db-store:
+
+
+  
