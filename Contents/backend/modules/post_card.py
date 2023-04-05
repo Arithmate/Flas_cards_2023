@@ -166,7 +166,21 @@ def post():
     WHERE
         is_deleted = 0;
     """
-    sort_number = select(sql)[0]["count(*)"]
+    sort_number_origin = select(sql)[0]["count(*)"]
+
+    sort_number = 0
+
+    if sort_number_origin < 10:
+        sort_number = "0000" + f"{sort_number_origin}"
+    
+    elif sort_number_origin < 100:
+        sort_number = "000" + f"{sort_number_origin}"
+
+    elif sort_number_origin < 1000:
+        sort_number = "00" + f"{sort_number_origin}"
+
+    elif sort_number_origin < 10000:
+        sort_number = "0" + f"{sort_number_origin}"
 
     card_name = data["card_name"]
     significance = data["significance"]
@@ -181,7 +195,9 @@ def post():
         ,small_category_id
         ,sort_number
         ,significance
-        ,study_state)
+        ,study_state
+        ,registered_at
+        ,updated_at)
     VALUES
         ('{card_id}'
         ,'{card_name}'
@@ -190,7 +206,9 @@ def post():
         ,'{small_category_id}'
         ,'{sort_number}'
         ,'{significance}'
-        ,'{study_state}');
+        ,'{study_state}'
+        ,'{registered_at}'
+        ,'{registered_at}');
     """
     insert(sql)
 

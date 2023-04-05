@@ -1,5 +1,5 @@
 .u-Container {
-  max-width: 600px;
+  max-width: 1000px;
   min-height: 1500px;
   margin-right: auto;
   margin-left: auto;
@@ -12,11 +12,18 @@
   color: blue;
 }
 .u-Container .c-Head {
-  font-size: 200%;
-  padding: 10px;
+  position: relative;
+  min-height: 80px;
 }
-.u-Container .c-Head p {
+.u-Container .c-Head .c-Link-Wrapper {
   margin: 0px;
+  font-size: 140%;
+  padding: 20px;
+}
+.u-Container .c-Head .c-Wrapper-Btn-For-Move {
+  position: absolute;
+  top: 20px;
+  right: 5%;
 }
 
 .c-Head-Form-Wrapper {
@@ -54,23 +61,26 @@ input.List_Btn {
   margin: 10px;
 }
 
-.c-Wrapper-Btn-For-Move {
+.c-Wrapper-Btn-Bottom {
   margin: 30px;
 }
 
 .c-Note-Wrapper {
-  max-width: 400px;
-  min-height: 400px;
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 300px;
   background-color: rgb(255, 255, 255);
-  margin-right: auto;
-  margin-left: auto;
 }
-.c-Note-Wrapper .a-title {
-  margin: 10px;
-  padding: 10px;
+.c-Note-Wrapper .c-Note-Inner {
+  position: relative;
+}
+.c-Note-Wrapper .c-Note-Inner .a-title {
+  margin: 20px;
   font-size: 120%;
 }
-.c-Note-Wrapper .a-Note-Content {
-  margin: 10px;
-  padding: 10px;
+.c-Note-Wrapper .c-Note-Inner .a-Note-Content {
+  white-space: pre-wrap;
 }/*# sourceMappingURL=main.css.map */

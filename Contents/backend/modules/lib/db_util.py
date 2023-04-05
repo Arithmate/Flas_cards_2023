@@ -24,9 +24,6 @@ def select(sql):
 def insert(sql):
     connect = __db()
     cursor = connect.cursor()
-    print("#ーーーーーーーーーーーーーーーーー")
-    print(sql)
-    print("#ーーーーーーーーーーーーーーーーー")
     cursor.execute(sql)
     connect.commit()
     cursor.close()

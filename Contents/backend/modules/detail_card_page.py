@@ -14,6 +14,7 @@ def get_detail(card_id_str):
     DBにアクセスしてデータを取得
     jsonデータを返却
     """
+    print("detail========", card_id_str)
     sql = f"""
     SELECT 
         c.card_id
@@ -39,7 +40,7 @@ def get_detail(card_id_str):
     INNER JOIN
         Notes01 as n
     ON
-        c.primal_note_id = s.note_id
+        c.primal_note_id = n.note_id
     WHERE
         c.is_deleted = 0
         AND c.card_id = '{card_id_str}'
@@ -49,5 +50,5 @@ def get_detail(card_id_str):
     """
     record = select(sql)[0]
 
-    return {"card_detail": record}
+    return json.dumps(record)
 

@@ -1,5 +1,4 @@
 from flask import Flask, Blueprint
-from flask_cors import CORS
 from flask import request
 from flask import render_template
 from lib.db_util import select, insert
@@ -14,11 +13,11 @@ put_card_router = Blueprint("put_card_router", __name__)
 @put_card_router.route("/put_card", methods=['put'])
 def put():
     """
-    DBにアクセスしてデータをインサート
+    DBにアクセスしてデータをアップデート
     """
     data = json.loads(request.data.decode('utf-8'))
 
-    card_id = str(uuid.uuid4()).replace('-','')
+    card_id = data["card_id"]
     registered_at = datetime.now()
 
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -74,7 +73,8 @@ def put():
         SmallCategory01
     WHERE
         is_deleted = 0
-        AND small_category_name = '{small_category_name}';
+        AND small_category_name = '{small_category_name}'
+        AND large_category_id = '{large_category_id}';
     """
 
     small_category_record_list = select(small_category_sql)
@@ -106,30 +106,32 @@ def put():
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
     note_content = data["note_content"]
-
-    note_id = str(uuid.uuid4()).replace('-','')
-    note_insert_sql = f"""
-    INSERT INTO Notes01 
-        (note_id
-        ,card_id
-        ,note_content
-        ,registered_at
-        ,updated_at)
-    VALUES
-        ({note_id}
-        ,{card_id}
-        ,'{note_content}'
-        ,'{registered_at}'
-        ,'{registered_at}');
+    note_update_sql = f"""
+    UPDATE
+        Notes01
+    SET
+        note_content = '{note_content}'
+        ,updated_at = '{registered_at}'
+    WHERE
+        card_id = '{card_id}';
     """
-    insert(note_insert_sql)
+    insert(note_update_sql)
 
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     # タグ設定
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-    tag_name_list = data["tag_name_list"]
+    tag_delete_sql = f"""
+    UPDATE
+        Tags01
+    SET
+        is_deleted = True
+    WHERE
+        card_id = '{card_id}';
+    """
+    insert(tag_delete_sql)
 
+    tag_name_list = data["tag_name_list"]
     for tag_name in tag_name_list:
         if tag_name:
             tag_id = str(uuid.uuid4()).replace('-','')
@@ -153,42 +155,44 @@ def put():
     # その他のパラメータ設定
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     
-    sort_number = 0
-
-    sql = f"""
-    SELECT
-        count(*)
-    FROM
-        Cards01
-    WHERE
-        is_deleted = 0
-    ORDER
-        BY sort_number;
-    """
-    sort_number = select(sql)[0]["count(*)"]
-
     card_name = data["card_name"]
     significance = data["significance"]
     study_state = data["study_state"]
 
-    sql = f"""
-    INSERT INTO Cards01 
-        (card_id
-        ,card_name
-        ,primal_note_id
-        ,large_category_id
-        ,small_category_id
-        ,sort_number
-        ,significance
-        ,study_state)
-    VALUES
-        ({card_id}
-        ,'{card_name}'
-        ,'{note_id}'
-        ,({large_category_id}
-        ,({small_category_id}
-        ,'{sort_number}'
-        ,'{significance}'
-        ,'{study_state}');
+    card_update_sql = f"""
+    UPDATE
+        Cards01
+    SET
+        card_name = '{card_name}'
+        ,large_category_id = '{large_category_id}'
+        ,small_category_id = '{small_category_id}'
+        ,significance = '{significance}'
+        ,study_state = '{study_state}'
+        ,updated_at = '{registered_at}'
+    WHERE
+        card_id = '{card_id}';
     """
-    insert(sql)
+
+    insert(card_update_sql)
+
+    return json.dumps({"card_id":card_id})
+
+
+@put_card_router.route("/put_card/delete/<card_id_str>", methods=['put'])
+def delete(card_id_str):
+    """
+    DBにアクセスしてデータを削除
+    """
+    print("バックエンド削除", card_id_str)
+
+    card_delete_sql = f"""
+    UPDATE
+        Cards01
+    SET
+        is_deleted = True
+    WHERE
+        card_id = '{card_id_str}';
+    """
+    insert(card_delete_sql)
+
+    return json.dumps({"card_id":card_id_str})
