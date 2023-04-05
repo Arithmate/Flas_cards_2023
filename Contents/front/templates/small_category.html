@@ -23,22 +23,17 @@
     <div class="u-Container">
       
       <div class="c-Head">
-        <p>小分類一覧</p>
+        <div class="c-Link-Wrapper"></div>
+        <div class="c-Wrapper-Btn-For-Move">
+          <form action="/post_card/view" method="post">
+            <p><input type="submit" value="単語帳を作る"/></p>
+          </form>
+        </div>
       </div>
 
       <div class="c-Body-List">
         <div id="js-Data-Wrapper-ListSmallCategory">
         </div>
-      </div>
-
-      <div class="c-Wrapper-Btn-For-Move">
-        <form action="/post_card/view" method="post">
-          <p><input type="submit" value="単語帳を作る"/></p>
-        </form>
-      
-        <form action="/large_category/get_list" method="get">
-          <p><input type="submit" value="大分類一覧へ"/></p>
-        </form>
       </div>
 
     </div>

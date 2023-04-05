@@ -54,7 +54,10 @@ def post():
         "study_state":request.form["study_state"],
     }
 
-    requests.post(url=url, headers=headers, data=json.dumps(data))
+    post_response = requests.post(url=url, headers=headers, data=json.dumps(data))
+
+    if post_response.status_code != 200:
+        return render_template('post_card.html', message='使用できない文字が含まれています')
 
     return render_template(
         'post_card.html',

@@ -10,7 +10,6 @@ from flask import request
 from modules.large_category_page import large_category_router
 from modules.small_category_page import small_category_router
 from modules.list_cards_page import list_cards_router
-from modules.detail_card_page import detail_card_router
 from modules.post_card import post_card_router
 from modules.put_card import put_card_router
 
@@ -21,7 +20,6 @@ flask = Flask(__name__)
 flask.register_blueprint(large_category_router)
 flask.register_blueprint(small_category_router)
 flask.register_blueprint(list_cards_router)
-flask.register_blueprint(detail_card_router)
 flask.register_blueprint(post_card_router)
 flask.register_blueprint(put_card_router)
 

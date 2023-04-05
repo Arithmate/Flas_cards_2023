@@ -17,7 +17,7 @@ if(document.URL.match(/large_category/)){
       let large_category_name = data['large_category_name']
 
       $('#js-Data-Wrapper-ListLargeCategory').append(
-        '<form action="/small_category/get_list/' + large_category_id + '" method="post" id="tmp' + index + '">',
+        '<form action="/small_category/get_list/' + large_category_id + '" method="get" id="tmp' + index + '">',
         '</form>'
       );
       $('#tmp' + index).append(
@@ -35,6 +35,12 @@ if(document.URL.match(/small_category/)){
   $(document).ready(function() {
 
     var data_list = JSON.parse(data_json)
+
+    let large_category_name = data_list[0]['large_category_name'];
+    $('.c-Link-Wrapper').append(
+      '<a href="http://localhost:5005/large_category/get_list">ホーム</a>',
+      ' > ' + large_category_name,
+    );
 
     for (index = 0; index < data_list.length; index++) {
 
@@ -62,6 +68,17 @@ if(document.URL.match(/list_cards/)){
 
     var data_list = JSON.parse(data_json)
 
+    let large_category_id = data_list[0]['large_category_id'];
+    let large_category_name = data_list[0]['large_category_name'];
+    let small_category_name = data_list[0]['small_category_name'];
+
+    $('.c-Link-Wrapper').append(
+      '<a href="http://localhost:5005/large_category/get_list">ホーム</a>',
+      ' > <a href="http://localhost:5005/small_category/get_list/' + large_category_id + '">' + large_category_name + '</a>',
+      ' > ' + small_category_name,
+    );
+
+
     for (index = 0; index < data_list.length; index++) {
 
       data = data_list[index];
@@ -70,7 +87,7 @@ if(document.URL.match(/list_cards/)){
       let note_content = data['note_content']
 
       $('#js-Data-Wrapper-ListCards').append(
-        '<form action="/detail_card/' + card_id + '" method="post" id="tmp' + index + '">',
+        '<form action="/put_card/view/' + card_id + '" method="post" id="tmp' + index + '">',
       );
       $('#tmp' + index).append(
         '<input type="hidden" name="card_id" value=' + card_id +  '>',
@@ -105,3 +122,29 @@ function remove_note(){
   $('#js-Note-title').remove();
   $('#js-Note-Content').remove();
 }
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 単語詳細表示
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+if(document.URL.match(/put_card/)){
+  $(document).ready(function() {
+
+    var data_record = JSON.parse(data_json)
+
+    var CardIdElement = document.querySelector('input[id="a-Hidden-Card"]')
+    CardIdElement.setAttribute('value',data_record["card_id"]);
+
+    var CardElement = document.querySelector('input[id="a-Card"]')
+    CardElement.setAttribute('value',data_record["card_name"]);
+
+    var LargeElement = document.querySelector('input[id="a-Large"]')
+    LargeElement.setAttribute('value',data_record["large_category_name"]);
+
+    var SmallElement = document.querySelector('input[id="a-Small"]')
+    SmallElement.setAttribute('value',data_record["small_category_name"]);
+
+    var DeleteIdElement = document.querySelector('input[id="a-Hidden-Card-Delete"]')
+    DeleteIdElement.setAttribute('value',data_record["card_id"]);
+
+    $('#a-Note').append(data_record["note_content"]);
+})};

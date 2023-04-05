@@ -16,16 +16,21 @@ def get_list(large_category_id_str):
     """
     sql = f"""
     SELECT 
-        small_category_id
-        ,small_category_name
+        s.small_category_id
+        ,s.small_category_name
+        ,l.large_category_name
     FROM
-        SmallCategory01
+        SmallCategory01 as s
+    INNER JOIN
+        LargeCategory01 as l
+    ON
+        s.large_category_id = l.large_category_id
     WHERE
-        is_deleted = 0
-        AND large_category_id = '{large_category_id_str}'
+        s.is_deleted = 0
+        AND s.large_category_id = '{large_category_id_str}'
     ORDER BY
-        sort_number
-        ,registered_at;
+        s.sort_number
+        ,s.registered_at;
     """
     record_list = select(sql)
 
