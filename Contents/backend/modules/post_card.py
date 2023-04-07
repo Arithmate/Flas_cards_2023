@@ -1,13 +1,11 @@
 from flask import Flask, Blueprint
-from flask_cors import CORS
 from flask import request
-from flask import render_template
-from lib.db_util import select, insert
+from lib.db_util import DataBase
+from lib.util import reset_sort_number
 from datetime import datetime
 
 import uuid
 import json
-import requests
 
 post_card_router = Blueprint("post_card_router", __name__)
 
@@ -20,6 +18,8 @@ def post():
 
     card_id = str(uuid.uuid4()).replace('-','')
     registered_at = datetime.now()
+
+    db = DataBase()
 
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     # 大分類設定
@@ -37,7 +37,7 @@ def post():
         is_deleted = 0
         AND large_category_name = '{large_category_name}';
     """
-    large_category_record_list = select(large_category_sql)
+    large_category_record_list = db.select(large_category_sql)
     large_category_id = ""
 
     if len(large_category_record_list) == 1:
@@ -58,7 +58,7 @@ def post():
             ,'{registered_at}'
             ,'{registered_at}');
         """
-        insert(large_category_insert_sql)
+        db.insert(large_category_insert_sql)
 
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     # 小分類設定
@@ -78,7 +78,7 @@ def post():
         AND large_category_id = '{large_category_id}';
     """
 
-    small_category_record_list = select(small_category_sql)
+    small_category_record_list = db.select(small_category_sql)
 
     if len(small_category_record_list) == 1:
         small_category_id = small_category_record_list[0]["small_category_id"]
@@ -100,7 +100,7 @@ def post():
             ,'{registered_at}'
             ,'{registered_at}');
         """
-        insert(small_category_insert_sql)
+        db.insert(small_category_insert_sql)
 
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     # ノート設定
@@ -123,7 +123,7 @@ def post():
         ,'{registered_at}'
         ,'{registered_at}');
     """
-    insert(note_insert_sql)
+    db.insert(note_insert_sql)
 
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     # タグ設定
@@ -150,38 +150,27 @@ def post():
                 ,'{registered_at}'
                 ,'{registered_at}');
             """
-            insert(tag_insert_sql)
+            db.insert(tag_insert_sql)
 
     #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-    # その他のパラメータ設定
-    #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-    
+    # ソート番号を設定
+    #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー   
     sort_number = 0
 
-    sql = f"""
+    sort_sql = f"""
     SELECT
         count(*)
     FROM
         Cards01
     WHERE
-        is_deleted = 0;
+        is_deleted = 0
+        AND small_category_id = '{small_category_id}';
     """
-    sort_number_origin = select(sql)[0]["count(*)"]
+    sort_number = db.select(sort_sql)[0]["count(*)"]
 
-    sort_number = 0
-
-    if sort_number_origin < 10:
-        sort_number = "0000" + f"{sort_number_origin}"
-    
-    elif sort_number_origin < 100:
-        sort_number = "000" + f"{sort_number_origin}"
-
-    elif sort_number_origin < 1000:
-        sort_number = "00" + f"{sort_number_origin}"
-
-    elif sort_number_origin < 10000:
-        sort_number = "0" + f"{sort_number_origin}"
-
+    #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+    # その他のパラメータ設定
+    #ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     card_name = data["card_name"]
     significance = data["significance"]
     study_state = data["study_state"]
@@ -204,12 +193,14 @@ def post():
         ,'{note_id}'
         ,'{large_category_id}'
         ,'{small_category_id}'
-        ,'{sort_number}'
+        ,{sort_number}
         ,'{significance}'
         ,'{study_state}'
         ,'{registered_at}'
         ,'{registered_at}');
     """
-    insert(sql)
+    db.insert(sql)
+    reset_sort_number(db, small_category_id)
 
-    return {}
+    db.commit()
+    return json.dumps({"card_id":card_id})

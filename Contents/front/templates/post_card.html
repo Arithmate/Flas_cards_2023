@@ -24,6 +24,11 @@
         <div class="c-Link-Wrapper">
           <a>単語作成</a>
         </div>
+        <div class="c-Wrapper-Btn-For-Move">
+          <form action="/large_list/get_list" method="get">
+            <p><input type="submit" value="ホームに戻る"/></p>
+          </form>
+        </div>
       </div>
       
       <div class="c-Massage-Wrapper">
@@ -31,37 +36,41 @@
       </div>
 
       
-      <div class="c-Head-Form-Wrapper">
+      <div class="c-Input-Form-Wrapper">
         <form action="insert" method="post">
-          <p><label><input type="text" placeholder="単語を入力" name="card_name"></label></p>
-          <p><label><input type="text" id="a-Large" value="" placeholder="大分類を入力" name="large_category_name"></label></p>
-          <p><label><input type="text" id="a-Small" value="" placeholder="小分類を入力" name="small_category_name"></label></p>
-          <p><label><textarea name="note_content" placeholder="ノートを入力"></textarea></label></p>
-          <p><label>重要度: <select name="significance">
-            <option value="1">★</option>
-            <option value="2">★★</option>
-            <option value="3" selected>★★★</option>
-            <option value="4">★★★★</option>
-            <option value="5">★★★★★</option>
-            </select></label></p>
-          <p><label>学習状況: <select name="study_state">
-            <option value="0">苦手</option>
-            <option value="1" selected>学習中</option>
-            <option value="2">得意</option>
-            <option value="3">完璧</option>
-            </select></label></p> 
-          <p><label><input type="text" placeholder="タグ1を入力" name="tag_name_0"></label></p>
-          <p><label><input type="text" placeholder="タグ2を入力" name="tag_name_1"></label></p>
-          <p><label><input type="text" placeholder="タグ3を入力" name="tag_name_2"></label></p>
-          <p><label><input type="text" placeholder="タグ4を入力" name="tag_name_3"></label></p>
-          <p><label><input type="text" placeholder="タグ5を入力" name="tag_name_4"></label></p>
-          <p><input type="submit" class="button1" value="作成"/></p>
-        </form>
-      </div>
-
-      <div class="c-Wrapper-Btn-Bottom">
-        <form action="/large_category/get_list" method="get">
-          <p><input type="submit" value="ホームに戻る"/></p>
+          <div class="c-Input-Form-Inner">
+            <p><label><input type="text" placeholder="単語を入力" name="card_name"></label></p>
+            <p><label>
+              <input type="text" list="l-Large" id="a-Large" value="" placeholder="大分類を入力" name="large_category_name">
+                <datalist id="l-Large">
+                </datalist>
+            </label></p>
+            <p><label>
+              <input type="text" list="l-Small" id="a-Small" value="" placeholder="小分類を入力" name="small_category_name">
+                <datalist id="l-Small">
+                </datalist>
+            </label></p>
+            <p><label><textarea name="note_content" placeholder="ノートを入力"></textarea></label></p>
+            <p><label>重要度: <select name="significance">
+              <option value="1">★</option>
+              <option value="2">★★</option>
+              <option value="3" selected>★★★</option>
+              <option value="4">★★★★</option>
+              <option value="5">★★★★★</option>
+              </select></label></p>
+            <p><label>学習状況: <select name="study_state">
+              <option value="0">苦手</option>
+              <option value="1" selected>学習中</option>
+              <option value="2">得意</option>
+              <option value="3">完璧</option>
+              </select></label></p> 
+            <p><label><input type="text" placeholder="タグ1を入力" name="tag_name_0"></label></p>
+            <p><label><input type="text" placeholder="タグ2を入力" name="tag_name_1"></label></p>
+            <p><label><input type="text" placeholder="タグ3を入力" name="tag_name_2"></label></p>
+            <p><label><input type="text" placeholder="タグ4を入力" name="tag_name_3"></label></p>
+            <p><label><input type="text" placeholder="タグ5を入力" name="tag_name_4"></label></p>
+          </div>
+          <p><input type="submit" class="a-Input-Btn" value="作成"/></p>
         </form>
       </div>
       
@@ -82,9 +91,7 @@
       SmallElement.setAttribute('value',small_category_str);}
   </script>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"></script>
-
+  <script src="http://localhost:5005/static/import/jquery-3.6.4.min.js"></script>
   <script src="http://localhost:5005/static/js/main.js"></script>
 
 </body>

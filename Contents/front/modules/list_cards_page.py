@@ -10,7 +10,7 @@ import requests
 list_cards_router = Blueprint("list_cards_router", __name__)
 
 
-@list_cards_router.route("/list_cards/get_list/<small_category_id_str>", methods=['post'])
+@list_cards_router.route("/list_cards/get_list/<small_category_id_str>", methods=['get'])
 def get_list(small_category_id_str):
     """
     バックエンドサーバーにアクセスしてjsonデータを取得

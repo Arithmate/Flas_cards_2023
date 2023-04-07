@@ -1,8 +1,5 @@
 from flask import Flask, Blueprint
-from flask_cors import CORS
-from flask import request
-from flask import render_template
-from lib.db_util import select, insert
+from lib.db_util import DataBase
 
 import json
 
@@ -14,16 +11,20 @@ def get_detail(card_id_str):
     DBにアクセスしてデータを取得
     jsonデータを返却
     """
-    print("detail========", card_id_str)
+
+    db = DataBase()
     sql = f"""
     SELECT 
         c.card_id
         ,c.card_name
         ,c.significance
         ,c.study_state
+        ,c.sort_number
 
+        ,l.large_category_id
         ,l.large_category_name
 
+        ,s.small_category_id
         ,s.small_category_name
 
         ,n.note_content
@@ -48,7 +49,9 @@ def get_detail(card_id_str):
         c.sort_number
         ,c.registered_at;
     """
-    record = select(sql)[0]
+    record = db.select(sql)[0]
+
+    record["sort_number"] = str(int(record["sort_number"]) + 1)
 
     return json.dumps(record)
 
