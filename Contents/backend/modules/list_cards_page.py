@@ -1,8 +1,5 @@
 from flask import Flask, Blueprint
-from flask_cors import CORS
-from flask import request
-from flask import render_template
-from lib.db_util import select, insert
+from lib.db_util import DataBase
 
 import json
 
@@ -14,11 +11,13 @@ def get_list(small_category_id_str):
     DBにアクセスしてデータを取得
     jsonデータを返却
     """
+    db = DataBase()
     sql = f"""
     SELECT 
         c.card_id
         ,c.card_name
         ,n.note_content
+        ,s.small_category_id
         ,s.small_category_name
         ,l.large_category_id
         ,l.large_category_name
@@ -43,7 +42,7 @@ def get_list(small_category_id_str):
         c.sort_number
         ,c.registered_at;
     """
-    record_list = select(sql)
+    record_list = db.select(sql)
 
     return json.dumps(record_list)
 

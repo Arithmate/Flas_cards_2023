@@ -1,3 +1,7 @@
+body {
+  margin: 0px;
+}
+
 .u-Container {
   max-width: 1000px;
   min-height: 1500px;
@@ -26,23 +30,24 @@
   right: 5%;
 }
 
-.c-Head-Form-Wrapper {
+.c-Input-Form-Wrapper {
   margin: 10px;
 }
-.c-Head-Form-Wrapper textarea {
+.c-Input-Form-Wrapper .c-Input-Form-Inner textarea {
   min-width: 400px;
   min-height: 100px;
 }
-.c-Head-Form-Wrapper input {
+.c-Input-Form-Wrapper .c-Input-Form-Inner input {
   min-width: 400px;
   min-height: 20px;
 }
-.c-Head-Form-Wrapper input.button1 {
-  min-width: 100px;
+.c-Input-Form-Wrapper .a-Sort {
+  max-width: 50px;
   min-height: 20px;
 }
-.c-Head-Form-Wrapper p.title {
-  font-size: 200%;
+.c-Input-Form-Wrapper .a-Input-Btn {
+  min-width: 100px;
+  min-height: 20px;
 }
 
 input.List_Btn {
@@ -56,9 +61,10 @@ input.List_Btn {
   flex-wrap: wrap;
 }
 .c-Wrapper-ListCards input.Card_List_Btn {
-  min-width: 150px;
-  min-height: 40px;
-  margin: 10px;
+  min-width: 350px;
+  min-height: 15px;
+  margin: 5px;
+  font-size: 80%;
 }
 
 .c-Wrapper-Btn-Bottom {
@@ -71,7 +77,7 @@ input.List_Btn {
   left: 50%;
   transform: translateX(-50%);
   width: 500px;
-  height: 300px;
+  height: 330px;
   background-color: rgb(255, 255, 255);
 }
 .c-Note-Wrapper .c-Note-Inner {
@@ -83,4 +89,6 @@ input.List_Btn {
 }
 .c-Note-Wrapper .c-Note-Inner .a-Note-Content {
   white-space: pre-wrap;
+  width: 400px;
+  height: 200px;
 }/*# sourceMappingURL=main.css.map */

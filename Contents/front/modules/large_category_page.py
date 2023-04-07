@@ -1,8 +1,5 @@
 from flask import Flask, Blueprint, redirect
-from flask_cors import CORS
-from flask import request
 from flask import render_template
-import json
 import requests
 
 large_category_router = Blueprint("large_category_router", __name__)
@@ -13,12 +10,12 @@ def view():
     htmlを表示
     """
     host = "http://localhost:5005"
-    url = host + "/large_category/get_list"
+    url = host + "/large_list/get_list"
 
     return redirect(url) 
 
 
-@large_category_router.route("/large_category/get_list", methods=['get'])
+@large_category_router.route("/large_list/get_list", methods=['get'])
 def get_list():
     """
     バックエンドサーバーにアクセスしてjsonデータを取得
@@ -27,7 +24,7 @@ def get_list():
         "content-Type": "application/json"
     }
     host = "http://backend:5006"
-    url = host + "/large_category/get_list"
+    url = host + "/large_list/get_list"
 
     response = requests.get(url=url, headers=headers)
 
