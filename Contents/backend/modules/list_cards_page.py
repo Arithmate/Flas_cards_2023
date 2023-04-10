@@ -14,19 +14,19 @@ def get_list(small_category_id_str):
     db = DataBase()
     sql = f"""
     SELECT 
-        c.card_id
+        c.is_reaf
+        ,c.card_id
         ,c.card_name
-        ,n.note_content
+        
         ,s.small_category_id
         ,s.small_category_name
+
         ,l.large_category_id
         ,l.large_category_name
+
+        ,n.note_content
     FROM
         Cards01 as c
-    INNER JOIN
-        Notes01 as n
-    ON
-        c.primal_note_id = n.note_id
     INNER JOIN
         SmallCategory01 as s
     ON
@@ -35,6 +35,10 @@ def get_list(small_category_id_str):
         LargeCategory01 as l
     ON
         s.large_category_id = l.large_category_id
+    LEFT JOIN
+        Notes01 as n
+    ON
+        c.primal_note_id = n.note_id
     WHERE
         c.is_deleted = 0
         AND c.small_category_id = '{small_category_id_str}'

@@ -12,7 +12,7 @@ from modules.small_category_page import small_category_router
 from modules.list_cards_page import list_cards_router
 from modules.post_card import post_card_router
 from modules.put_card import put_card_router
-from modules.get_any_data import get_any_router
+from modules.short_access import get_any_router
 
 # --- APIサーバインスタンスの設定
 flask = Flask(__name__)
