@@ -59,12 +59,20 @@ input.List_Btn {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  max-width: 500px;
 }
 .c-Wrapper-ListCards input.Card_List_Btn {
   min-width: 350px;
   min-height: 15px;
   margin: 5px;
   font-size: 80%;
+}
+.c-Wrapper-ListCards .a-Reaf {
+  min-width: 350px;
+  min-height: 15px;
+  margin: 5px;
+  background-color: black;
+  color: aquamarine;
 }
 
 .c-Wrapper-Btn-Bottom {
@@ -73,11 +81,11 @@ input.List_Btn {
 
 .c-Note-Wrapper {
   position: fixed;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 330px;
+  bottom: 50%;
+  right: 10%;
+  transform: translateY(50%);
+  min-width: 400px;
+  min-height: 550px;
   background-color: rgb(255, 255, 255);
 }
 .c-Note-Wrapper .c-Note-Inner {
@@ -89,6 +97,6 @@ input.List_Btn {
 }
 .c-Note-Wrapper .c-Note-Inner .a-Note-Content {
   white-space: pre-wrap;
-  width: 400px;
-  height: 200px;
+  min-width: 300px;
+  min-height: 400px;
 }/*# sourceMappingURL=main.css.map */

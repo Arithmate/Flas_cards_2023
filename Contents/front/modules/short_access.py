@@ -60,3 +60,24 @@ def get_small():
         del record_list[index]
 
     return json.dumps({"record_list":record_list})
+
+
+
+@get_any_router.route("/short_delete/<card_id_str>", methods=['get'])
+def delete(card_id_str):
+    """
+    DBにアクセスしてデータを削除
+    """
+    db = DataBase()
+
+    card_delete_sql = f"""
+    UPDATE
+        Cards01
+    SET
+        is_deleted = True
+    WHERE
+        card_id = '{card_id_str}';
+    """
+    db.insert(card_delete_sql)
+    db.commit()
+    

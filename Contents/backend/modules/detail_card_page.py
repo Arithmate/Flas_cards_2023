@@ -14,8 +14,9 @@ def get_detail(card_id_str):
 
     db = DataBase()
     sql = f"""
-    SELECT 
-        c.card_id
+    SELECT
+        c.is_reaf
+        ,c.card_id
         ,c.card_name
         ,c.significance
         ,c.study_state
@@ -38,7 +39,7 @@ def get_detail(card_id_str):
         SmallCategory01 as s
     ON
         c.small_category_id = s.small_category_id
-    INNER JOIN
+    LEFT JOIN
         Notes01 as n
     ON
         c.primal_note_id = n.note_id

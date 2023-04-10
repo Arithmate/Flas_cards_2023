@@ -88,15 +88,31 @@ if(document.URL.match(/list_cards/)){
       data = data_list[index];
       let card_id = data['card_id']
       let card_name = data['card_name']
-      let note_content = data['note_content']
+      let is_reaf = data['is_reaf']
 
-      $('#js-Data-Wrapper-ListCards').append(
-        '<form action="/put_card/view/' + card_id + '" method="post" id="tmp' + index + '">',
-      );
-      $('#tmp' + index).append(
-        '<input type="hidden" name="card_id" value="' + card_id +  '">',
-        '<input type="submit" id="' + card_id + '" class="Card_List_Btn" value="' + card_name + '" name="' + note_content + '">',
-      );
+      if(is_reaf == true){
+        let note_content = data['note_content']
+
+        $('#js-Data-Wrapper-ListCards').append(
+          '<form action="/put_card/view/' + card_id + '" method="post" id="tmp' + index + '">',
+        );
+        $('#tmp' + index).append(
+          '<input type="hidden" name="card_id" value="' + card_id +  '">',
+          '<input type="submit" id="' + card_id + '" class="a-Reaf value="' + card_name + '" name="作成済のしおりです。">',          
+        );
+      }
+
+      if(is_reaf == false){
+        let note_content = data['note_content']
+
+        $('#js-Data-Wrapper-ListCards').append(
+          '<form action="/put_card/view/' + card_id + '" method="post" id="tmp' + index + '">',
+        );
+        $('#tmp' + index).append(
+          '<input type="hidden" name="card_id" value="' + card_id +  '">',
+          '<input type="submit" id="' + card_id + '" class="Card_List_Btn" value="' + card_name + '" name="' + note_content + '">',
+        );
+      }
     }
     display_note();
 })};
