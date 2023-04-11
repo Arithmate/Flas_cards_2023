@@ -88,9 +88,9 @@ if(document.URL.match(/list_cards/)){
       data = data_list[index];
       let card_id = data['card_id']
       let card_name = data['card_name']
-      let is_reaf = data['is_reaf']
+      let is_separator = data['is_separator']
 
-      if(is_reaf == true){
+      if(is_separator == true){
         let note_content = data['note_content']
 
         $('#js-Data-Wrapper-ListCards').append(
@@ -98,11 +98,11 @@ if(document.URL.match(/list_cards/)){
         );
         $('#tmp' + index).append(
           '<input type="hidden" name="card_id" value="' + card_id +  '">',
-          '<input type="submit" id="' + card_id + '" class="a-Reaf value="' + card_name + '" name="作成済のしおりです。">',          
+          '<input type="submit" id="' + card_id + '" class="a-Separator" value="' + card_name + '" name="作成済のしおりです。">',          
         );
       }
 
-      if(is_reaf == false){
+      if(is_separator == false){
         let note_content = data['note_content']
 
         $('#js-Data-Wrapper-ListCards').append(
