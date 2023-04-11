@@ -32,22 +32,22 @@ def post():
         ):
         return render_template('post_card.html', message='「単語名・大分類・小分類」は必須入力です。')
 
-    if request.form.get("is_reaf"):
+    if request.form.get("is_separator"):
         # しおりフラグONの場合、しおり作成APIを呼ぶ
         headers = {
             "content-Type": "application/json"
         }
-        reaf_host = "http://backend:5006"
-        reaf_url = reaf_host + "/post_card/reaf"
-        reaf_data = {
+        separator_host = "http://backend:5006"
+        separator_url = separator_host + "/post_card/separator"
+        separator_data = {
             "card_name": card_name,
             "large_category_name": large_category_name,
             "small_category_name": small_category_name,
         }
 
-        reaf_response = requests.post(url=reaf_url, headers=headers, data=json.dumps(reaf_data))
+        separator_response = requests.post(url=separator_url, headers=headers, data=json.dumps(separator_data))
 
-        if reaf_response.status_code != 200:
+        if separator_response.status_code != 200:
             return render_template('post_card.html', message='しおり作成に失敗しました。')
 
         return render_template(

@@ -3,7 +3,7 @@ use cardsdb;
 
 CREATE TABLE Cards01 (
    is_deleted       bit(1)       NOT NULL DEFAULT 0                                          COMMENT '{"name":"削除フラグ","note":""}'
- , is_reaf       bit(1)       NOT NULL DEFAULT 0                                          COMMENT '{"name":"しおりフラグ","note":"フラグが1の場合、単語ではなくしおりとして扱う"}'
+ , is_separator       bit(1)       NOT NULL DEFAULT 0                                          COMMENT '{"name":"しおりフラグ","note":"フラグが1の場合、単語ではなくしおりとして扱う"}'
  , card_id      varchar(32)   NOT NULL                                                    COMMENT '{"name":"単語ID","note":""}'
  , card_name    varchar(256)  NOT NULL                                                    COMMENT '{"name":"単語名","note":""}'
  , large_category_id          varchar(32)   NOT NULL                                          COMMENT '{"name":"大分類ID","note":"OS識別用(1:iOS、2:Android、etc)"}'

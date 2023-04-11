@@ -14,7 +14,7 @@ def get_list(small_category_id_str):
     db = DataBase()
     sql = f"""
     SELECT 
-        c.is_reaf
+        c.is_separator
         ,c.card_id
         ,c.card_name
         

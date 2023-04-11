@@ -207,8 +207,8 @@ def post():
     return json.dumps({"card_id": card_id})
 
 
-@post_card_router.route("/post_card/reaf", methods=['post'])
-def post_reaf():
+@post_card_router.route("/post_card/separator", methods=['post'])
+def post_separator():
     """
     しおりを作成
     """
@@ -320,11 +320,11 @@ def post_reaf():
     # その他のパラメータ設定
     # ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     card_name = data["card_name"]
-    is_reaf = True
+    is_separator = True
 
     sql = f"""
     INSERT INTO Cards01
-        (is_reaf
+        (is_separator
         ,card_id
         ,card_name
         ,large_category_id
@@ -333,7 +333,7 @@ def post_reaf():
         ,registered_at
         ,updated_at)
     VALUES
-        ({is_reaf}
+        ({is_separator}
         ,'{card_id}'
         ,'{card_name}'
         ,'{large_category_id}'
