@@ -1,30 +1,40 @@
 
 const LOCAL_HOST = "http://localhost:5005";
+const PATH = location.pathname;
+const DATA_LIST = JSON.parse(data_json)
+const DATA_DICT = DATA_LIST[0]
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// フッターとヘッダーを設定
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+$(function(){
+  $('#js-Footer').load("http://localhost:5005/static/base/footer.html");
+});
 
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // 大分類一覧
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 if(document.URL.match(/large_list/)){
-  $(document).ready(function() {
+  $('#js-Header').load("http://localhost:5005/static/base/header.html", function(){
+    $(document).ready(function() {
 
-    var data_list = JSON.parse(data_json)
+      for (index = 0; index < DATA_LIST.length; index++) {
 
-    for (index = 0; index < data_list.length; index++) {
+        data = DATA_LIST[index];
+        let large_category_id = data['large_category_id']
+        let large_category_name = data['large_category_name']
 
-      data = data_list[index];
-      let large_category_id = data['large_category_id']
-      let large_category_name = data['large_category_name']
-
-      $('#js-Data-Wrapper-ListLargeCategory').append(
-        '<form action="/small_list/get_list/' + large_category_id + '" method="get" id="tmp' + index + '">',
-        '</form>'
-      );
-      $('#tmp' + index).append(
-        '<input type="hidden" name="large_category_id_str" value=' + large_category_id +  '>',
-        '<input type="submit" class="List_Btn" value=' + large_category_name +  '>',
-      );
-    }
+        $('#js-Data-Wrapper-ListLargeCategory').append(
+          '<form action="/small_list/get_list/' + large_category_id + '" method="get" id="tmp' + index + '">',
+          '</form>'
+        );
+        $('#tmp' + index).append(
+          '<input type="hidden" name="large_category_id_str" value=' + large_category_id +  '>',
+          '<input type="submit" class="a-Category" value=' + large_category_name +  '>',
+        );
+      }
+    })
   })};
 
 
@@ -32,31 +42,31 @@ if(document.URL.match(/large_list/)){
 // 小分類一覧
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 if(document.URL.match(/small_list/)){
-  $(document).ready(function() {
+  $('#js-Header').load("http://localhost:5005/static/base/header.html", function(){
+    $(document).ready(function() {
 
-    var data_list = JSON.parse(data_json)
-
-    let large_category_name = data_list[0]['large_category_name'];
-    $('.c-Link-Wrapper').append(
-      '<a href="http://localhost:5005/large_list/get_list">ホーム</a>',
-      ' > ' + large_category_name,
-    );
-
-    for (index = 0; index < data_list.length; index++) {
-
-      data = data_list[index];
-      let small_category_id = data['small_category_id']
-      let small_category_name = data['small_category_name']
-
-      $('#js-Data-Wrapper-ListSmallCategory').append(
-        '<form action="/list_cards/get_list/' + small_category_id + '" method="get" id="tmp' + index + '">',
-        '</form>'
+      let large_category_name = DATA_DICT['large_category_name'];
+      $('.c-Link-Wrapper').append(
+        '<a href="http://localhost:5005/large_list/get_list">ホーム</a>',
+        ' > ' + large_category_name,
       );
-      $('#tmp' + index).append(
-        '<input type="hidden" name="small_category_id_str" value=' + small_category_id +  '>',
-        '<input type="submit" class="List_Btn" value=' + small_category_name +  '>',
-      );
-    }
+
+      for (index = 0; index < DATA_LIST.length; index++) {
+
+        data = DATA_LIST[index];
+        let small_category_id = data['small_category_id']
+        let small_category_name = data['small_category_name']
+
+        $('#js-Data-Wrapper-ListSmallCategory').append(
+          '<form action="/list_cards/get_list/' + small_category_id + '" method="get" id="tmp' + index + '">',
+          '</form>'
+        );
+        $('#tmp' + index).append(
+          '<input type="hidden" name="small_category_id_str" value=' + small_category_id +  '>',
+          '<input type="submit" class="a-Category" value=' + small_category_name +  '>',
+        );
+      }
+    })
 })};
 
 
@@ -64,58 +74,58 @@ if(document.URL.match(/small_list/)){
 // 単語帳一覧
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 if(document.URL.match(/list_cards/)){
-  $(document).ready(function() {
+  $('#js-Header').load("http://localhost:5005/static/base/header.html", function(){
+    $(document).ready(function() {
 
-    var data_list = JSON.parse(data_json)
+      let large_category_id = DATA_DICT['large_category_id'];
+      let large_category_name = DATA_DICT['large_category_name'];
+      let small_category_id = DATA_DICT['small_category_id'];
+      let small_category_name = DATA_DICT['small_category_name'];
 
-    let large_category_id = data_list[0]['large_category_id'];
-    let large_category_name = data_list[0]['large_category_name'];
-    let small_category_id = data_list[0]['small_category_id'];
-    let small_category_name = data_list[0]['small_category_name'];
+      var note_element = document.querySelector('form[id="js-Note-Update"]')
+      note_element.setAttribute('action','/put_card/update_note/' + small_category_id);
 
-    var note_element = document.querySelector('form[id="js-Note-Update"]')
-    note_element.setAttribute('action','/put_card/update_note/' + small_category_id);
+      $('.c-Link-Wrapper').append(
+        '<a href="http://localhost:5005/large_list/get_list">ホーム</a>',
+        ' > <a href="http://localhost:5005/small_list/get_list/' + large_category_id + '">' + large_category_name + '</a>',
+        ' > ' + small_category_name,
+      );
 
-    $('.c-Link-Wrapper').append(
-      '<a href="http://localhost:5005/large_list/get_list">ホーム</a>',
-      ' > <a href="http://localhost:5005/small_list/get_list/' + large_category_id + '">' + large_category_name + '</a>',
-      ' > ' + small_category_name,
-    );
+      for (index = 0; index < DATA_LIST.length; index++) {
 
+        data = DATA_LIST[index];
+        let card_id = data['card_id']
+        let card_name = data['card_name']
+        let is_separator = data['is_separator']
 
-    for (index = 0; index < data_list.length; index++) {
+        if(is_separator == true){
+          let note_content = data['note_content']
 
-      data = data_list[index];
-      let card_id = data['card_id']
-      let card_name = data['card_name']
-      let is_separator = data['is_separator']
+          $('#js-Data-Wrapper-ListCards').append(
+            '<form action="/put_card/view/' + card_id + '" method="post" id="tmp' + index + '">',
+          );
+          $('#tmp' + index).append(
+            '<input type="hidden" name="card_id" value="' + card_id +  '">',
+            '<input type="submit" id="' + card_id + '" class="a-Separator" value="' + card_name + '" name="作成済のしおりです。">',          
+          );
+        }
 
-      if(is_separator == true){
-        let note_content = data['note_content']
+        if(is_separator == false){
+          let note_content = data['note_content']
 
-        $('#js-Data-Wrapper-ListCards').append(
-          '<form action="/put_card/view/' + card_id + '" method="post" id="tmp' + index + '">',
-        );
-        $('#tmp' + index).append(
-          '<input type="hidden" name="card_id" value="' + card_id +  '">',
-          '<input type="submit" id="' + card_id + '" class="a-Separator" value="' + card_name + '" name="作成済のしおりです。">',          
-        );
+          $('#js-Data-Wrapper-ListCards').append(
+            '<form action="/put_card/view/' + card_id + '" method="post" id="tmp' + index + '">',
+          );
+          $('#tmp' + index).append(
+            '<input type="hidden" name="card_id" value="' + card_id +  '">',
+            '<input type="submit" id="' + card_id + '" class="a-Card" value="' + card_name + '" name="' + note_content + '">',
+          );
+        }
       }
-
-      if(is_separator == false){
-        let note_content = data['note_content']
-
-        $('#js-Data-Wrapper-ListCards').append(
-          '<form action="/put_card/view/' + card_id + '" method="post" id="tmp' + index + '">',
-        );
-        $('#tmp' + index).append(
-          '<input type="hidden" name="card_id" value="' + card_id +  '">',
-          '<input type="submit" id="' + card_id + '" class="Card_List_Btn" value="' + card_name + '" name="' + note_content + '">',
-        );
-      }
-    }
-    display_note();
+      display_note();
+    })
 })};
+
 
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -123,7 +133,7 @@ if(document.URL.match(/list_cards/)){
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 function display_note(){
 
-  $('.Card_List_Btn').mouseover(function () {
+  $('.a-Card').mouseover(function () {
     remove_note();
 
     var value = this.value;
@@ -151,40 +161,55 @@ function remove_note(){
 // 単語詳細表示
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 if(document.URL.match(/put_card/)){
-  $(document).ready(function() {
+  $('#js-Header').load("http://localhost:5005/static/base/header.html", function(){
+    $(document).ready(function() {
 
-    var data_record = JSON.parse(data_json)
+      $('.c-Link-Wrapper').append(
+        '<a href="http://localhost:5005/large_list/get_list">ホーム</a>',
+        ' > <a href="http://localhost:5005/small_list/get_list/' + DATA_DICT["large_category_id"] + '">' + DATA_DICT["large_category_name"] + '</a>',
+        ' > <a href="http://localhost:5005/list_cards/get_list/' + DATA_DICT["small_category_id"] + '">' + DATA_DICT["small_category_name"] + '</a>',
+      );
 
-    $('.c-Link-Wrapper').append(
-      '<a href="http://localhost:5005/large_list/get_list">ホーム</a>',
-      ' > <a href="http://localhost:5005/small_list/get_list/' + data_record["large_category_id"] + '">' + data_record["large_category_name"] + '</a>',
-      ' > <a href="http://localhost:5005/list_cards/get_list/' + data_record["small_category_id"] + '">' + data_record["small_category_name"] + '</a>',
-    );
+      var CardIdElement = document.querySelector('input[id="a-Hidden-Card"]')
+      CardIdElement.setAttribute('value',DATA_DICT["card_id"]);
 
-    var CardIdElement = document.querySelector('input[id="a-Hidden-Card"]')
-    CardIdElement.setAttribute('value',data_record["card_id"]);
+      var SortElement = document.querySelector('input[id="a-Sort"]')
+      SortElement.setAttribute('value',DATA_DICT["sort_number"]);
 
-    var SortElement = document.querySelector('input[id="a-Sort"]')
-    SortElement.setAttribute('value',data_record["sort_number"]);
+      var CardElement = document.querySelector('input[id="a-Card"]')
+      CardElement.setAttribute('value',DATA_DICT["card_name"]);
 
-    var CardElement = document.querySelector('input[id="a-Card"]')
-    CardElement.setAttribute('value',data_record["card_name"]);
+      var LargeElement = document.querySelector('input[id="a-Large"]')
+      LargeElement.setAttribute('value',DATA_DICT["large_category_name"]);
 
-    var LargeElement = document.querySelector('input[id="a-Large"]')
-    LargeElement.setAttribute('value',data_record["large_category_name"]);
+      var SmallElement = document.querySelector('input[id="a-Small"]')
+      SmallElement.setAttribute('value',DATA_DICT["small_category_name"]);
 
-    var SmallElement = document.querySelector('input[id="a-Small"]')
-    SmallElement.setAttribute('value',data_record["small_category_name"]);
+      var delete_btn_element = document.querySelector('form[id="js-Delete"]')
+      delete_btn_element.setAttribute('action','/put_card/delete/' + DATA_DICT["small_category_id"]);
 
-    var delete_btn_element = document.querySelector('form[id="js-Delete"]')
-    delete_btn_element.setAttribute('action','/put_card/delete/' + data_record["small_category_id"]);
+      var DeleteIdElement = document.querySelector('input[id="a-Hidden-Card-Delete"]')
+      DeleteIdElement.setAttribute('value',DATA_DICT["card_id"]);
 
-    var DeleteIdElement = document.querySelector('input[id="a-Hidden-Card-Delete"]')
-    DeleteIdElement.setAttribute('value',data_record["card_id"]);
-
-    $('#a-Note').append(data_record["note_content"]);
+      $('#a-Note').append(DATA_DICT["note_content"]);
+  })
 })};
 
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 単語作成
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// NOTE: 作成画面は共通ヘッダーを使用しない
+if(document.URL.match(/post_card/)){
+    $(document).ready(function() {
+      if(DATA_DICT["is_after_post"] == "TRUE"){
+        var LargeElement = document.querySelector('input[id="a-Large"]')
+        LargeElement.setAttribute('value',DATA_DICT["large_category_name"]);
+
+        var SmallElement = document.querySelector('input[id="a-Small"]')
+        SmallElement.setAttribute('value',DATA_DICT["small_category_name"]);
+      }
+    })
+};
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 //　プルダウン作成

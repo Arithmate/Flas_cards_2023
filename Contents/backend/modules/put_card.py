@@ -253,7 +253,7 @@ def put():
 
     db.commit()
 
-    return json.dumps({"card_id": card_id})
+    return json.dumps([{"card_id": card_id}])
 
 
 @put_card_router.route("/put_card/update_note", methods=['put'])
@@ -281,7 +281,7 @@ def update_note():
     db.insert(note_update_sql)
     db.commit()
 
-    return json.dumps({"card_id": card_id})
+    return json.dumps([{"card_id": card_id}])
 
 
 @put_card_router.route("/put_card/delete/<card_id_str>", methods=['put'])
@@ -302,4 +302,4 @@ def delete(card_id_str):
     db.insert(card_delete_sql)
     db.commit()
 
-    return json.dumps({"card_id": card_id_str})
+    return json.dumps([{"card_id": card_id_str}])

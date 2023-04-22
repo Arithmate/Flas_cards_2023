@@ -43,7 +43,11 @@ def get_list_with_message(small_category_id_str, message):
 
     res_json = response.content.decode() if response.status_code == 200 else None
 
-    return render_template('list_cards.html', message=message, res_json=res_json)
+    return render_template(
+        'list_cards.html',
+        message=message,
+        res_json=res_json,
+    )
 
 
 @put_card_router.route("/put_card/update", methods=['post'])

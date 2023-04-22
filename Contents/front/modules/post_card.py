@@ -14,7 +14,12 @@ def view():
     """
     htmlを表示
     """
-    return render_template('post_card.html', success_message='GET OK')
+    res_json = json.dumps([{}])
+    return render_template(
+        'post_card.html',
+        success_message='GET OK',
+        res_json=res_json,
+    )
 
 
 @post_card_router.route("/post_card/insert", methods=['post'])
@@ -22,6 +27,7 @@ def post():
     """
     単語カードを作成
     """
+    res_json = json.dumps([{}])
     card_name = request.form["card_name"]
     large_category_name = request.form["large_category_name"]
     small_category_name = request.form["small_category_name"]
@@ -30,7 +36,11 @@ def post():
             or not large_category_name
             or not small_category_name
         ):
-        return render_template('post_card.html', message='「単語名・大分類・小分類」は必須入力です。')
+        return render_template(
+            'post_card.html',
+            message='「単語名・大分類・小分類」は必須入力です。',
+            res_json=res_json,
+        )
 
     if request.form.get("is_separator"):
         # しおりフラグONの場合、しおり作成APIを呼ぶ
@@ -48,13 +58,18 @@ def post():
         separator_response = requests.post(url=separator_url, headers=headers, data=json.dumps(separator_data))
 
         if separator_response.status_code != 200:
-            return render_template('post_card.html', message='しおり作成に失敗しました。')
+            return render_template(
+                'post_card.html',
+                message='しおり作成に失敗しました。',
+                res_json=res_json,
+            )
+
+        res_json = separator_response.content.decode() if separator_response.status_code == 200 else None
 
         return render_template(
             'post_card.html',
             message='しおり作成に成功しました。',
-            large_category_name=large_category_name,
-            small_category_name=small_category_name,
+            res_json=res_json,
         )
 
     tag_name_list = [
@@ -84,11 +99,16 @@ def post():
         url=url, headers=headers, data=json.dumps(data))
 
     if post_response.status_code != 200:
-        return render_template('post_card.html', message='使用できない文字が含まれています')
+        return render_template(
+            'post_card.html',
+            message='使用できない文字が含まれています',
+            res_json=res_json,
+        )
+
+    res_json = post_response.content.decode() if post_response.status_code == 200 else None
 
     return render_template(
         'post_card.html',
         message='登録に成功しました。',
-        large_category_name=large_category_name,
-        small_category_name=small_category_name,
+        res_json=res_json,
     )
