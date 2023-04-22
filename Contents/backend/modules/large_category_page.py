@@ -13,7 +13,7 @@ def get_list():
     jsonデータを返却
     """
     db = DataBase()
-    sql = f"""
+    sql = """
     SELECT 
         large_category_id
         ,large_category_name

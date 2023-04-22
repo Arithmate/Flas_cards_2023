@@ -54,5 +54,5 @@ def get_detail(card_id_str):
 
     record["sort_number"] = str(int(record["sort_number"]) + 1)
 
-    return json.dumps(record)
+    return json.dumps([record])
 

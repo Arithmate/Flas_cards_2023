@@ -2,39 +2,102 @@ body {
     margin:0px;
 }
 
-.u-Container {
-    max-width :1000px;
-    min-height: 1500px;
-    margin-right: auto;
-    margin-left: auto;
-    text-align: center;
-    background-color:rgb(172, 232, 232);
-    color:rgb(14, 34, 36);
-
-    .c-Massage-Wrapper{
-        margin:10px;
-        color:blue;
+.u-Head {
+    text-align:center;
+    position:relative;
+    min-height: 80px;
+    
+    .c-Link-Wrapper {
+        margin:0px;
+        font-size: 140%;
+        padding:20px;
     }
 
-    .c-Head {
-        position:relative;
-        min-height: 80px;
-        
-        .c-Link-Wrapper {
-            margin:0px;
-            font-size: 140%;
-            padding:20px;
-        }
-
-        .c-Wrapper-Btn-For-Move {
-            position:absolute;
-            top:20px;
-            right:5%;
-        }
+    .c-Wrapper-Btn-For-Move {
+        position:absolute;
+        top:20px;
+        right:10%;
     }
 }
 
-.c-Input-Form-Wrapper {
+.u-Massage-Wrapper{
+    margin:10px;
+    color:blue;
+}
+
+.u-List-Unit {
+    text-align:center;
+    max-width :1200px;
+    min-height: 1500px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:rgb(42, 42, 42);
+    color:rgb(164, 164, 164);
+    position:relative;
+
+    .c-Wrapper-ListCards {
+        position:absolute;
+        margin-left: 15%;
+        max-width: 500px;
+    
+        .a-Card {
+            min-width: 350px;
+            min-height: 15px;
+            margin:5px;
+            font-size: 80%;
+            background-color:rgb(16, 16, 16);
+            color:rgb(200, 200, 200);
+        }
+    
+        .a-Separator {
+            min-width:350px;
+            min-height: 15px;
+            margin:5px;
+            background-color:rgb(218, 218, 218);
+            color:rgb(28, 28, 28);
+        }
+    }
+
+    .c-Wrapper-ListCategory {
+        position:relative;
+
+        .a-Category {
+            margin:10px;
+            min-width: 400px;
+            min-height: 15px;
+            background-color:rgb(16, 16, 16);
+            color:rgb(200, 200, 200);
+        }
+    }
+    
+    .c-Wrapper-Note {
+        float:right;
+        position:relative;
+        margin-right: 15%;
+        min-width: 400px;
+        min-height: 550px;
+        background-color:rgb(16, 16, 16);
+        color:rgb(200, 200, 200);
+    
+        .c-Note-Inner{
+    
+            .a-title{
+                margin:20px;
+                font-size: 120%;
+            }
+        
+            .a-Note-Content{
+                white-space: pre-wrap;
+                min-width: 300px;
+                min-height: 400px;        
+            }
+    
+        }
+    
+    }
+}
+
+.u-Input-Form-Wrapper {
     margin:10px;
 
     .c-Input-Form-Inner {
@@ -61,64 +124,7 @@ body {
     }
 }
 
-input.List_Btn {
-    margin:10px;
-    min-width: 400px;
-}
-
-.c-Wrapper-ListCards {
-    display: flex;
-    justify-content:center;
-    flex-wrap: wrap;
-    max-width: 500px;
-
-    input.Card_List_Btn {
-        min-width: 350px;
-        min-height: 15px;
-        margin:5px;
-        font-size: 80%;
-    }
-
-    .a-Separator {
-        min-width:350px;
-        min-height: 15px;
-        margin:5px;
-        background-color:black;
-        color:aquamarine;
-    }
-}
-
 .c-Wrapper-Btn-Bottom {
     margin:30px
-}
-
-.c-Note-Wrapper {
-    position:fixed;
-    bottom:50%;
-    right: 10%;
-    transform: translateY(50%);
-    min-width: 400px;
-    min-height: 550px;
-    background-color:rgb(255, 255, 255);
-
-    .c-Note-Inner{
-        position:relative;
-
-        .a-title{
-            margin:20px;
-            font-size: 120%;
-        }
-    
-        .a-Note-Content{
-            white-space: pre-wrap;
-            min-width: 300px;
-            min-height: 400px;        }
-
-        // textarea {
-        //     min-width: 300px;
-        //     min-height: 400px;
-        // }
-    }
-
 }
 

@@ -80,4 +80,3 @@ def delete(card_id_str):
     """
     db.insert(card_delete_sql)
     db.commit()
-    

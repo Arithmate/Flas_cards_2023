@@ -204,7 +204,12 @@ def post():
     reset_sort_number(db, small_category_id)
 
     db.commit()
-    return json.dumps({"card_id": card_id})
+    return json.dumps([{
+        "card_id": card_id,
+        "large_category_name": large_category_name,
+        "small_category_name": small_category_name,
+        "is_after_post": "TRUE",
+    }])
 
 
 @post_card_router.route("/post_card/separator", methods=['post'])
@@ -347,4 +352,9 @@ def post_separator():
     reset_sort_number(db, small_category_id)
 
     db.commit()
-    return json.dumps({"card_id": card_id})
+    return json.dumps([{
+        "card_id": card_id,
+        "large_category_name": large_category_name,
+        "small_category_name": small_category_name,
+        "is_after_post": "TRUE",
+    }])
