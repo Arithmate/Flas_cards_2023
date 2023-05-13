@@ -1,0 +1,33 @@
+main
+    Unit
+        Container
+            Wrapper
+                Inner   
+
+
+背景・画面全体をmainとする
+
+大まかな役割ごとのポジションを、unit bodyで決める(メニューバーなど)
+
+同じ役割の中で、行ごとにContainerを決める
+
+同じ行の中で、Wrapperで左右分割などする
+　同じ行の中で並べる項目全てに同じWrapperクラスを指定する
+
+同じWrapperの中で、さらに縦に並べたいときはInnerを使う
+　同じ箱の中で並べる項目全てに同じInnerクラスを指定する
+
+
+display:block;
+ 基本の型。横幅が親要素と同じになるため、
+ Container, Innerの設定に向く
+ overflow:hidden;を使用しないと、
+ 子要素のmargin開始位置が親要素のmarginの端になる
+
+display:inner-block;
+ 横に並べる用。余裕がある限り、要素が右に並ぶ。
+ Wrapperの設定に向く
+ vertical-align:top;を使用しないと、下にずれる
+
+
+

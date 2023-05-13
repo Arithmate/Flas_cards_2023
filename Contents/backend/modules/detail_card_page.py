@@ -54,5 +54,24 @@ def get_detail(card_id_str):
 
     record["sort_number"] = str(int(record["sort_number"]) + 1)
 
+    tag_sql = f"""
+        SELECT
+            tag_name
+        FROM
+            Tags01
+        WHERE
+            is_deleted = False
+            AND card_id = '{card_id_str}'
+        ORDER BY
+            sort_number;
+    """
+    tag_records = db.select(tag_sql)
+
+    for index, tag_record in enumerate(tag_records):
+        record[f"tag_name_{str(index)}"] = tag_record.get("tag_name")
+    
+    print("######################")
+    print(record)
+
     return json.dumps([record])
 

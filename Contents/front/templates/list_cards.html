@@ -5,32 +5,49 @@
   </head>
 
   <body>
-    <main class="u-List-Unit">
+    <main class="m-Main">
+      <div class="u-Body-List">
 
-      <div id="js-Header"></div>
+        <div id="js-Header"></div>
 
-      <div class="u-Massage-Wrapper">
-        <p>{{message}}</p>
-      </div>
-  
-      <div id="js-Data-Wrapper-ListCards" class="c-Wrapper-ListCards"></div>
-
-      <div class="c-Wrapper-Note">
-        <div class="c-Note-Inner">
-          <div id="js-Data-Wrapper-NoteTitle">
-            <p id=js-Note-title class="a-title">ノート</p>
-          </div>
-          <form id="js-Note-Update" action="" method="post">
-            <div id="js-Data-Wrapper-Note">
-              <p id="js-Note-Content" class="a-Note-Content">単語にカーソルを合わせてください。</p>
-            </div>
-            <input type="submit" id="js-Button-Note" class="a-Button-Note" value="変更を保存"/>
-          </form>
+        <div class="u-Massage-Wrapper">
+          <p>{{message}}</p>
         </div>
+
+        <div class="c-Wrapper-ListCards">
+
+          <div class="c-Container-List">
+            <div class="c-Wrapper-Note">
+              <div class="c-Inner-Note">
+                <div id="js-Data-Wrapper-NoteTitle" class="a-title">
+                  <p id=js-Note-title>NOTE</p>
+                </div>
+              </div>
+
+              <form id="js-Note-Update" action="" method="post">
+                <div class="c-Inner-Note">
+                  <div id="js-Data-Wrapper-Note">
+                    <textarea id="js-Note-Content"></textarea>
+                  </div>
+                </div>
+
+                <div class="c-Inner-Note">
+                  <div id="js-Data-Wrapper-Note-Btn"></div>
+                </div>        
+              </form>
+
+            </div>
+          </div>
+
+          <div class="c-Container-List">
+            <div id="js-Data-Wrapper-ListCards" class="c-Inner-ListCards"></div>
+          </div>
+
+        </div>
+
+        <div id="js-Footer"></div>
+
       </div>
-
-      <div id="js-Footer"></div>
-
     </main>
   </body>
 

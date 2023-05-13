@@ -134,7 +134,7 @@ def post():
 
     tag_name_list = data["tag_name_list"]
 
-    for tag_name in tag_name_list:
+    for index, tag_name in enumerate(tag_name_list):
         if tag_name:
             tag_id = str(uuid.uuid4()).replace('-', '')
             tag_insert_sql = f"""
@@ -142,12 +142,14 @@ def post():
                 (tag_id
                 ,card_id
                 ,tag_name
+                ,sort_number
                 ,registered_at
                 ,updated_at)
             VALUES
                 ('{tag_id}'
                 ,'{card_id}'
                 ,'{tag_name}'
+                ,{index}
                 ,'{registered_at}'
                 ,'{registered_at}');
             """
