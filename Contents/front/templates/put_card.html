@@ -6,61 +6,82 @@
   </head>
 
   <body>
-    <main class="u-List-Unit">
+    <main class="m-Main">
+      <div class="u-Body-Forms">
       
-      <div id="js-Header"></div>
-      
-      <div class="u-Massage-Wrapper">
-        <p>{{message}}</p>
-      </div>
+        <div id="js-Header"></div>
+        
+        <div class="u-Massage-Wrapper">
+          <p>{{message}}</p>
+        </div>
 
-      <div class="u-Input-Form-Wrapper">
-        <form action="/put_card/update" method="post">
-          <p><input type="hidden" id="a-Hidden-Card" name="card_id" value=""></p>
-          <p><label>並び順: <input type="text" id="a-Sort" class="a-Sort" value="" placeholder="並び順" name="sort_number"></label></p>
+        <div class="c-Wrapper-Post-Put">
+          <form action="/put_card/update" method="post">
+
+            <div class="c-Input-Form-Inner">
+              <div class="c-Container-Sub-Form">
+                <p><input type="hidden" id="a-Hidden-Card" name="card_id" value=""></p>
+                <p><label>SORT <input type="text" id="a-Sort" class="a-Sort" value="" placeholder="並び順" name="sort_number"></label></p>
+                <p><label><select name="significance">
+                  <option value="1">★</option>
+                  <option value="2">★★</option>
+                  <option value="3" selected>★★★</option>
+                  <option value="4">★★★★</option>
+                  <option value="5">★★★★★</option>
+                  </select></label></p>
+                <p><label><select name="study_state">
+                  <option value="0">苦手</option>
+                  <option value="1" selected>学習中</option>
+                  <option value="2">得意</option>
+                  <option value="3">完璧</option>
+                </select></label></p> 
+              </div>
+            </div>
+
+            <div class="c-Input-Form-Inner">
+              <div class="c-Container-Form">
+                <p><label><input type="text" id="a-Card" value="" placeholder="単語を入力" name="card_name"></label></p>
+                <p><label>
+                  <input type="text" list="l-Large" id="a-Large" value="" placeholder="大分類を入力" name="large_category_name">
+                  <datalist id="l-Large">
+                  </datalist>
+                </label></p>
+                <p><label>
+                  <input type="text" list="l-Small" id="a-Small" value="" placeholder="小分類を入力" name="small_category_name">
+                  <datalist id="l-Small">
+                  </datalist>
+                </label></p>
+                <p><label><textarea id="a-Note" name="note_content" placeholder="ノートを入力"></textarea></label></p>
+              </div>
+              <div class="c-Container-Form">
+                <p><label><input type="text" id="a-Tag-0" value="" placeholder="タグ1を入力" name="tag_name_0"></label></p>
+                <p><label><input type="text" id="a-Tag-1" value="" placeholder="タグ2を入力" name="tag_name_1"></label></p>
+                <p><label><input type="text" id="a-Tag-2" value="" placeholder="タグ3を入力" name="tag_name_2"></label></p>
+                <p><label><input type="text" id="a-Tag-3" value="" placeholder="タグ4を入力" name="tag_name_3"></label></p>
+                <p><label><input type="text" id="a-Tag-4" value="" placeholder="タグ5を入力" name="tag_name_4"></label></p>
+              </div>
+            </div>
+
+            <div class="c-Input-Form-Inner">
+              <p><input type="submit" class="a-Btn-Base" value="OK"/></p>
+            </div>
+          </form>
+          
           <div class="c-Input-Form-Inner">
-            <p><label><input type="text" id="a-Card" value="" placeholder="単語を入力" name="card_name"></label></p>
-            <p><label>
-              <input type="text" list="l-Large" id="a-Large" value="" placeholder="大分類を入力" name="large_category_name">
-              <datalist id="l-Large">
-              </datalist>
-            </label></p>
-            <p><label>
-              <input type="text" list="l-Small" id="a-Small" value="" placeholder="小分類を入力" name="small_category_name">
-              <datalist id="l-Small">
-              </datalist>
-            </label></p>
-            <p><label><textarea id="a-Note" name="note_content" placeholder="ノートを入力"></textarea></label></p>
-            <p><label>重要度: <select name="significance">
-              <option value="1">★</option>
-              <option value="2">★★</option>
-              <option value="3" selected>★★★</option>
-              <option value="4">★★★★</option>
-              <option value="5">★★★★★</option>
-              </select></label></p>
-            <p><label>学習状況: <select name="study_state">
-              <option value="0">苦手</option>
-              <option value="1" selected>学習中</option>
-              <option value="2">得意</option>
-              <option value="3">完璧</option>
-            </select></label></p> 
-            <p><label><input type="text" placeholder="タグ1を入力" name="tag_name_0"></label></p>
-            <p><label><input type="text" placeholder="タグ2を入力" name="tag_name_1"></label></p>
-            <p><label><input type="text" placeholder="タグ3を入力" name="tag_name_2"></label></p>
-            <p><label><input type="text" placeholder="タグ4を入力" name="tag_name_3"></label></p>
-            <p><label><input type="text" placeholder="タグ5を入力" name="tag_name_4"></label></p>
+            <form id="js-Cancel" action="" method="get">
+              <p><input type="submit" class="a-Btn-Base" value="CANCEL"/></p>
+            </form>
+
+            <form id="js-Delete" action="" method="post">
+              <input type="hidden" id="a-Hidden-Card-Delete" name="card_id" value="">
+              <input type="submit" class="a-Btn-Delete" value="DELETE"/>
+            </form>
           </div>
-          <p><input type="submit" class="a-Input-Btn" value="保存"/></p>
-        </form>
+        </div>
+        
+        <div id="js-Footer"></div>
 
-        <form id="js-Delete" action="" method="post">
-          <input type="hidden" id="a-Hidden-Card-Delete" name="card_id" value="">
-          <input type="submit" class="a-Input-Btn" value="削除"/>
-        </form>
       </div>
-      
-      <div id="js-Footer"></div>
-
     </main>
   </body>
 

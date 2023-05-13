@@ -30,7 +30,6 @@ if(document.URL.match(/large_list/)){
           '</form>'
         );
         $('#tmp' + index).append(
-          '<input type="hidden" name="large_category_id_str" value=' + large_category_id +  '>',
           '<input type="submit" class="a-Category" value=' + large_category_name +  '>',
         );
       }
@@ -62,7 +61,6 @@ if(document.URL.match(/small_list/)){
           '</form>'
         );
         $('#tmp' + index).append(
-          '<input type="hidden" name="small_category_id_str" value=' + small_category_id +  '>',
           '<input type="submit" class="a-Category" value=' + small_category_name +  '>',
         );
       }
@@ -138,14 +136,18 @@ function display_note(){
 
     var value = this.value;
     $('#js-Data-Wrapper-NoteTitle').append(
-      '<p id="js-Note-title" class="a-title">' + value + '</p>'
+      '<p id="js-Note-title">' + value + '</p>'
     );
 
     var note_content = this.name;
     var card_id = this.id;
     $('#js-Data-Wrapper-Note').append(
       '<input type="hidden" id="js-Hidden-Card" name="card_id" value="' + card_id + '">',
-      '<textarea id="js-Note-Content" class="a-Note-Content" name="note_content">' + note_content + '</textarea>'
+      '<textarea id="js-Note-Content" name="note_content">' + note_content + '</textarea>',
+    );
+
+    $('#js-Data-Wrapper-Note-Btn').append(
+      '<input type="submit" id="js-Button-Note" value="UPDATE"/>',
     );
   });
 };
@@ -154,6 +156,7 @@ function remove_note(){
   $('#js-Note-title').remove();
   $('#js-Note-Content').remove();
   $('#js-Hidden-Card').remove();
+  $('#js-Button-Note').remove();
 }
 
 
@@ -170,28 +173,48 @@ if(document.URL.match(/put_card/)){
         ' > <a href="http://localhost:5005/list_cards/get_list/' + DATA_DICT["small_category_id"] + '">' + DATA_DICT["small_category_name"] + '</a>',
       );
 
-      var CardIdElement = document.querySelector('input[id="a-Hidden-Card"]')
-      CardIdElement.setAttribute('value',DATA_DICT["card_id"]);
+      // 入力フォーム初期値
+      var card_id_element = document.querySelector('input[id="a-Hidden-Card"]')
+      card_id_element.setAttribute('value',DATA_DICT["card_id"]);
 
-      var SortElement = document.querySelector('input[id="a-Sort"]')
-      SortElement.setAttribute('value',DATA_DICT["sort_number"]);
+      var sort_element = document.querySelector('input[id="a-Sort"]')
+      sort_element.setAttribute('value',DATA_DICT["sort_number"]);
 
-      var CardElement = document.querySelector('input[id="a-Card"]')
-      CardElement.setAttribute('value',DATA_DICT["card_name"]);
+      var card_element = document.querySelector('input[id="a-Card"]')
+      card_element.setAttribute('value',DATA_DICT["card_name"]);
 
-      var LargeElement = document.querySelector('input[id="a-Large"]')
-      LargeElement.setAttribute('value',DATA_DICT["large_category_name"]);
+      var large_element = document.querySelector('input[id="a-Large"]')
+      large_element.setAttribute('value',DATA_DICT["large_category_name"]);
 
-      var SmallElement = document.querySelector('input[id="a-Small"]')
-      SmallElement.setAttribute('value',DATA_DICT["small_category_name"]);
+      var small_element = document.querySelector('input[id="a-Small"]')
+      small_element.setAttribute('value',DATA_DICT["small_category_name"]);
+
+      $('#a-Note').append(DATA_DICT["note_content"]);
+
+      var tag_0_element = document.querySelector('input[id="a-Tag-0"]')
+      tag_0_element.setAttribute('value',DATA_DICT["tag_name_0"] ? DATA_DICT["tag_name_0"] : "");
+
+      var tag_1_element = document.querySelector('input[id="a-Tag-1"]')
+      tag_1_element.setAttribute('value',DATA_DICT["tag_name_1"] ? DATA_DICT["tag_name_1"] : "");
+
+      var tag_2_element = document.querySelector('input[id="a-Tag-2"]')
+      tag_2_element.setAttribute('value',DATA_DICT["tag_name_2"] ? DATA_DICT["tag_name_2"] : "");
+
+      var tag_3_element = document.querySelector('input[id="a-Tag-3"]')
+      tag_3_element.setAttribute('value',DATA_DICT["tag_name_3"] ? DATA_DICT["tag_name_3"] : "");
+
+      var tag_4_element = document.querySelector('input[id="a-Tag-4"]')
+      tag_4_element.setAttribute('value',DATA_DICT["tag_name_4"] ? DATA_DICT["tag_name_4"] : "");
+
+      // キャンセルボタン、削除ボタン
+      var cancel_btn_element = document.querySelector('form[id="js-Cancel"]')
+      cancel_btn_element.setAttribute('action','/list_cards/get_list/' + DATA_DICT["small_category_id"]);
 
       var delete_btn_element = document.querySelector('form[id="js-Delete"]')
       delete_btn_element.setAttribute('action','/put_card/delete/' + DATA_DICT["small_category_id"]);
 
-      var DeleteIdElement = document.querySelector('input[id="a-Hidden-Card-Delete"]')
-      DeleteIdElement.setAttribute('value',DATA_DICT["card_id"]);
-
-      $('#a-Note').append(DATA_DICT["note_content"]);
+      var delete_input_element = document.querySelector('input[id="a-Hidden-Card-Delete"]')
+      delete_input_element.setAttribute('value',DATA_DICT["card_id"]);
   })
 })};
 
@@ -201,13 +224,11 @@ if(document.URL.match(/put_card/)){
 // NOTE: 作成画面は共通ヘッダーを使用しない
 if(document.URL.match(/post_card/)){
     $(document).ready(function() {
-      if(DATA_DICT["is_after_post"] == "TRUE"){
-        var LargeElement = document.querySelector('input[id="a-Large"]')
-        LargeElement.setAttribute('value',DATA_DICT["large_category_name"]);
+      var LargeElement = document.querySelector('input[id="a-Large"]')
+      LargeElement.setAttribute('value',DATA_DICT["large_category_name"] ? DATA_DICT["large_category_name"] : "");
 
-        var SmallElement = document.querySelector('input[id="a-Small"]')
-        SmallElement.setAttribute('value',DATA_DICT["small_category_name"]);
-      }
+      var SmallElement = document.querySelector('input[id="a-Small"]')
+      SmallElement.setAttribute('value',DATA_DICT["small_category_name"] ? DATA_DICT["small_category_name"] : "");
     })
 };
 

@@ -126,14 +126,14 @@ def put():
     else:
         small_category_id = str(uuid.uuid4()).replace('-', '')
         small_category_insert_sql = f"""
-        INSERT INTO SmallCategory01 
+        INSERT INTO SmallCategory01
             (small_category_id
             ,small_category_name
             ,large_category_id
             ,registered_at
             ,updated_at)
         VALUES
-            ({small_category_id}
+            ('{small_category_id}'
             ,'{small_category_name}'
             ,'{large_category_id}'
             ,'{registered_at}'
@@ -172,20 +172,22 @@ def put():
         """
         db.insert(tag_delete_sql)
 
-        for tag_name in tag_name_list:
+        for index, tag_name in enumerate(tag_name_list):
             if tag_name:
                 tag_id = str(uuid.uuid4()).replace('-', '')
                 tag_insert_sql = f"""
-                INSERT INTO Tags01 
+                INSERT INTO Tags01
                     (tag_id
                     ,card_id
                     ,tag_name
+                    ,sort_number
                     ,registered_at
                     ,updated_at)
                 VALUES
-                    ({tag_id}
-                    ,{card_id}
+                    ('{tag_id}'
+                    ,'{card_id}'
                     ,'{tag_name}'
+                    ,{index}
                     ,'{registered_at}'
                     ,'{registered_at}');
                 """
@@ -300,6 +302,16 @@ def delete(card_id_str):
         card_id = '{card_id_str}';
     """
     db.insert(card_delete_sql)
+
+    note_delete_sql = f"""
+    UPDATE
+        Notes01
+    SET
+        is_deleted = True
+    WHERE
+        card_id = '{card_id_str}';
+    """
+    db.insert(note_delete_sql)
     db.commit()
 
     return json.dumps([{"card_id": card_id_str}])
